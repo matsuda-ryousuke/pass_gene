@@ -19,78 +19,80 @@ window.addEventListener("DOMContentLoaded", function () {
   // パスワード生成、登録表示セクションの定義
   const pass_div = document.querySelector("#pass_div");
   const register_div = document.querySelector("#register_div");
+  const login_div = document.querySelector("#login_div");
   const password = document.querySelector("#password");
 
-  // パスワード生成セクション以外を非表示にする
-  pass_div.style.display = "block";
+  // ログインセクション以外を非表示にする
+  login_div.style.display = "block";
+  pass_div.style.display = "none";
   register_div.style.display = "none";
   password.style.opacity = 0;
 
-  // パスワードを入力させる
-  const pass_phrase = window.prompt(
-    "ユーザー認証用のパスワードを入力してください。",
-    ""
-  );
+  // // パスワードを入力させる
+  // const pass_phrase = window.prompt(
+  //   "ユーザー認証用のパスワードを入力してください。",
+  //   ""
+  // );
 
-  // パスフレーズはハッシュ化をする
-  const hash_phrase = CryptoJS.SHA256(pass_phrase);
+  // // パスフレーズはハッシュ化をする
+  // const hash_phrase = CryptoJS.SHA256(pass_phrase);
 
-  // パスワードが入力されたなら、
-  if (pass_phrase) {
-    // 初期登録時にはその時刻、及びそれを元にしたソルトをローカルストレージに保存
-    if (localStorage.getItem("crypt_date") == null) {
-      var now = Date.now();
-      encrypt_date = Encrypt.encrypt_password(hash_phrase, now);
-      localStorage.setItem("crypt_date", encrypt_date);
-      localStorage.setItem("salt", CryptoJS.SHA256(hash_phrase + now));
+  // // パスワードが入力されたなら、
+  // if (pass_phrase) {
+  //   // 初期登録時にはその時刻、及びそれを元にしたソルトをローカルストレージに保存
+  //   if (localStorage.getItem("crypt_date") == null) {
+  //     var now = Date.now();
+  //     encrypt_date = Encrypt.encrypt_password(hash_phrase, now);
+  //     localStorage.setItem("crypt_date", encrypt_date);
+  //     localStorage.setItem("salt", CryptoJS.SHA256(hash_phrase + now));
 
-      register_div.style.display = "block";
+  //     register_div.style.display = "block";
 
-      // セッションストレージには、暗号鍵作成フラグを登録
-      sessionStorage.setItem("crypted", true);
+  //     // セッションストレージには、暗号鍵作成フラグを登録
+  //     sessionStorage.setItem("crypted", true);
 
-      window.alert("パスワードを承認しました。");
-      // 認証パスワードを送信しなかったらキャンセル
+  //     window.alert("パスワードを承認しました。");
+  //     // 認証パスワードを送信しなかったらキャンセル
 
-      // pass_div.style.display = "none";
-      register_div.style.display = "block";
-      var data = Register.local_storage_get("password");
+  //     // pass_div.style.display = "none";
+  //     register_div.style.display = "block";
+  //     var data = Register.local_storage_get("password");
 
-      Display.display_password(hash_phrase, data);
+  //     Display.display_password(hash_phrase, data);
 
-      // 登録済みなら、登録されていたsalt と 入力したパスワードから作成したsalt_test を確認
-      // = 登録済みのパスワードと、入力パスワードが合致したかをチェック
-    } else {
-      var crypt_date = Encrypt.decrypt_password(
-        hash_phrase,
-        localStorage.getItem("crypt_date")
-      );
-      var salt_test = CryptoJS.SHA256(hash_phrase + crypt_date).toString();
-      var salt = localStorage.getItem("salt");
+  //     // 登録済みなら、登録されていたsalt と 入力したパスワードから作成したsalt_test を確認
+  //     // = 登録済みのパスワードと、入力パスワードが合致したかをチェック
+  //   } else {
+  //     var crypt_date = Encrypt.decrypt_password(
+  //       hash_phrase,
+  //       localStorage.getItem("crypt_date")
+  //     );
+  //     var salt_test = CryptoJS.SHA256(hash_phrase + crypt_date).toString();
+  //     var salt = localStorage.getItem("salt");
 
-      // salt の比較が違った場合、処理を抜ける
-      if (salt_test !== salt) {
-        window.alert("異なる入力値です。");
-        // return;
-      } else {
-        register_div.style.display = "block";
+  //     // salt の比較が違った場合、処理を抜ける
+  //     if (salt_test !== salt) {
+  //       window.alert("異なる入力値です。");
+  //       // return;
+  //     } else {
+  //       register_div.style.display = "block";
 
-        // セッションストレージには、暗号鍵作成フラグを登録
-        sessionStorage.setItem("crypted", true);
+  //       // セッションストレージには、暗号鍵作成フラグを登録
+  //       sessionStorage.setItem("crypted", true);
 
-        window.alert("パスワードを承認しました。");
-        // 認証パスワードを送信しなかったらキャンセル
+  //       window.alert("パスワードを承認しました。");
+  //       // 認証パスワードを送信しなかったらキャンセル
 
-        // pass_div.style.display = "none";
-        register_div.style.display = "block";
-        var data = Register.local_storage_get("password");
+  //       // pass_div.style.display = "none";
+  //       register_div.style.display = "block";
+  //       var data = Register.local_storage_get("password");
 
-        Display.display_password(hash_phrase, data);
-      }
-    }
-  } else {
-    window.alert("キャンセルされました。");
-  }
+  //       Display.display_password(hash_phrase, data);
+  //     }
+  //   }
+  // } else {
+  //   window.alert("キャンセルされました。");
+  // }
 
   // Generate Passwordボタンでパスワード生成
   const gene_btn = document.querySelector("#gene_btn");

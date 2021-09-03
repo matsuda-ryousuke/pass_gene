@@ -98,6 +98,27 @@
       <h1 id="msg"></h1>
     </section>
 
+    <section id="login_div">
+      <div class="login">
+        <input
+          type="email"
+          name="mail"
+          placeholder="ユーザーID"
+          id="login_mail"
+          class="login_input"
+        />
+        <input
+          type="password"
+          name="pass"
+          placeholder="パスワード"
+          id="login_pass"
+          class="login_input"
+        />
+
+        <input type="submit" value="登録" id="login-btn" />
+      </div>
+    </section>
+
     <!-- モーダルをまとめたセクション -->
     <section class="modal-section">
       <!-- パスワードの登録用モーダル -->
@@ -137,6 +158,36 @@
           <div class="modal-inner">
             <div class="modal-item">
               <div class="login">
+                <input
+                  type="email"
+                  name="mail"
+                  placeholder="ユーザーID"
+                  id="login_mail"
+                  class="login_input"
+                />
+                <input
+                  type="password"
+                  name="pass"
+                  placeholder="パスワード"
+                  id="login_pass"
+                  class="login_input"
+                />
+
+                <input type="submit" value="登録" id="login-btn" />
+              </div>
+            </div>
+          </div>
+          <div class="btn-close js-modal-close">close</div>
+        </div>
+      </article>
+
+      <!-- ユーザー登録確認モーダル -->
+      <article id="modal_confirm" class="modal js-modal is_close">
+        <div class="modal-bg js-modal-close"></div>
+        <div class="modal-content">
+          <div class="modal-inner">
+            <div class="modal-item">
+              <div class="confirm">
                 <input
                   type="email"
                   name="mail"

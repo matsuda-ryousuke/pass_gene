@@ -155,3 +155,13 @@ PHP側
 セッションストレージのセッションIDを復号する。
 また、表示中の自動生成パスワードを、暗号化する。
 そして送信。
+
+
+function showResult(target, message){
+  target.innerHTML = message;
+
+  // 5秒後に消す
+  setTimeout(function(){
+    target.innerHTML = "";
+  }, 3000);
+}

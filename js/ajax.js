@@ -42,6 +42,8 @@ $(function () {
 
         window.alert("パスワードを承認しました。");
 
+        $("#login_div").hide();
+
         // セッションストレージには、暗号鍵作成フラグを登録
         sessionStorage.setItem("crypted", true);
 
