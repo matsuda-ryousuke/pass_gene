@@ -1,0 +1,365 @@
+@charset "UTF-8";
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%; // ブラウザの持ってるのは16pxが基本、分かりにくいから10pxに調整
+}
+body {
+  color: #333;
+  font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium",
+    "游ゴシック", "Yu Gothic", sans-serif;
+  font-size: 1.6rem;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.btn--orange,
+a.btn--orange {
+  color: #fff;
+  background-color: #eb6100;
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+}
+
+a.btn--radius {
+  border-radius: 100vh;
+}
+
+a.hidden {
+  display: none;
+}
+
+/* ==============================================
+header
+=================================================*/
+.header {
+  display: flex; //
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+  &-logo {
+    width: 100px;
+    height: 50px;
+    background: #666;
+  }
+
+  &-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+    li {
+      position: relative;
+
+      height: 100%;
+      line-height: 100%;
+      a {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        padding: 0 30px;
+        color: #333;
+        text-decoration: none;
+      }
+      &:hover {
+        background: #aaa;
+        color: #fff;
+        -webkit-transition: 0.3s;
+        transition: all 0.3s;
+        .sub-list > .sub-item {
+          overflow: visible;
+          opacity: 1;
+          height: 50px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+}
+
+/* ==============================================
+contents
+=================================================*/
+main {
+  display: block; // IE対策のおまじない
+}
+
+.section {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.common-secttl {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.password {
+  &_danger {
+    text-align: center;
+    background: #ff8484;
+    transition: 0.3s;
+    animation: to_danger 0.5s;
+    -webkit-animation: to_danger 0.5s;
+  }
+  &_normal {
+    text-align: center;
+    background: #ffff9e;
+    transition: 0.3s;
+  }
+
+  &_safe {
+    text-align: center;
+    background: #93ffc9;
+    transition: 0.3s;
+  }
+}
+
+@keyframes SlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-64px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#password {
+  animation: SlideIn 0.5s;
+  padding: 10px;
+  .common-secttl {
+    margin-top: 20px;
+  }
+  h2 {
+    line-height: 2.5rem;
+  }
+}
+
+#pass_div {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  div {
+    margin: 10px;
+  }
+}
+
+#register_div {
+  text-align: center;
+  #display_pass {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    dl {
+      width: 100%;
+    }
+    dl div {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    dt {
+      padding: 20px;
+      background-color: #dadada;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10%;
+    }
+    dd {
+      padding: 20px;
+      background-color: #f3f3f3;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      width: 40%;
+    }
+
+    .copy_btn {
+      padding: 0;
+    }
+
+    .copy_btn a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em 2em;
+      width: 20px;
+      color: #2285b1;
+      font-size: 18px;
+      font-weight: 700;
+      border: 2px solid #2285b1;
+      margin-left: 10px;
+    }
+
+    .copy_btn a:hover {
+      color: #333333;
+      text-decoration: none;
+      background-color: #a0c4d3;
+    }
+
+    .copy_btn a:hover::after {
+      border-top: 3px solid #333333;
+      border-right: 3px solid #333333;
+    }
+
+    .delete_btn a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em 2em;
+      width: 20px;
+      color: #ff9393;
+      font-size: 18px;
+      font-weight: 700;
+      border: 2px solid #ff9393;
+    }
+
+    .delete_btn a:hover {
+      color: #333333;
+      text-decoration: none;
+      background-color: #ffb7b7;
+    }
+
+    .delete_btn a:hover::after {
+      border-top: 3px solid #333333;
+      border-right: 3px solid #333333;
+    }
+  }
+}
+
+.register {
+  margin: 10px;
+}
+.display {
+  margin: 10px;
+}
+
+#display_pass {
+  margin: 10px;
+}
+
+#all_delete_btn a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 1em 2em;
+  width: 20px;
+  color: #2285b1;
+  font-size: 18px;
+  font-weight: 700;
+  border: 2px solid #2285b1;
+}
+
+#all_delete_btn a:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #a0c4d3;
+}
+
+#all_delete_btn a:hover::after {
+  border-top: 3px solid #333333;
+  border-right: 3px solid #333333;
+}
+
+.footer-section {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* モーダルウィンドウ */
+.modal-window {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-color: #dfdddd;
+  border-radius: 5px;
+  z-index: 11;
+  padding: 2rem;
+}
+
+/* 閉じるボタン */
+.button-close {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  padding: 1em;
+  background-color: #c96931;
+  color: #eaeaea;
+  border-radius: 20rem;
+  cursor: pointer;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.no_scroll {
+  overflow: hidden;
+}

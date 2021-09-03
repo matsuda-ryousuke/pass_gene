@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="contact-form">
+      <!-- <form
+      id="contact-form"
+      action="http://192.168.33.13/login.php"
+      method="post"
+    > -->
+      <input type="text" name="mail" value="" placeholder="ユーザーID" />
+      <input type="text" name="pass" value="" placeholder="パスワード" />
+      <input type="button" value="送信" id="submit-btn" />
+      <input type="button" value="送信" id="submit-btn2" />
+    </form>
+    <h1 id="msg">ddd</h1>
+    <!-- <form id="contact-form"> -->
+    <form
+      id="contact-form"
+      action="http://192.168.33.13/login.php"
+      method="post"
+    >
+      <input type="text" name="mail" value="" placeholder="ユーザーID" />
+      <input type="text" name="pass" value="" placeholder="パスワード" />
+      <input type="submit" value="送信" id="submit-btnaa" />
+      <!-- <input type="button" value="送信" id="submit-btn2" /> -->
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <script src="./js/login.js"></script>
+  </body>
+</html>

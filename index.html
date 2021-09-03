@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"
+    />
+
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <body>
+    <section id="password">
+      <div id="">
+        <h2 class="common-secttl" id="pass_box"></h2>
+        <input type="hidden" name="" id="pass_box2" style="display: none" />
+      </div>
+      <div id="">
+        <h2 id="strength_box"></h2>
+      </div>
+      <div id="get_pass">
+        <a
+          href="#"
+          class="btn btn--orange btn--radius js-modal-open hidden"
+          id="modal_btn"
+          >このパスワードを登録する</a
+        >
+      </div>
+    </section>
+
+    <section id="pass_div">
+      <div id="length">
+        パスワード文字列の長さ：<input
+          type="number"
+          name=""
+          id="pass_length"
+          min="4"
+          max="32"
+        />文字
+      </div>
+
+      <div>
+        <form>
+          <label>
+            <input
+              class="checks"
+              type="checkbox"
+              name="type"
+              value="lowercase"
+            />英小文字
+          </label>
+          <label>
+            <input
+              class="checks"
+              type="checkbox"
+              name="type"
+              value="uppercase"
+            />英大文字
+          </label>
+          <label>
+            <input
+              class="checks"
+              type="checkbox"
+              name="type"
+              value="number"
+            />数字
+          </label>
+          <label>
+            <input
+              class="checks"
+              type="checkbox"
+              name="type"
+              value="symbol"
+            />記号
+          </label>
+        </form>
+      </div>
+
+      <div id="get_pass">
+        <a href="#" class="btn btn--orange btn--radius" id="gene_btn"
+          >パスワード生成</a
+        >
+      </div>
+    </section>
+
+    <section id="register_div">
+      <div class="display">
+        <a href="#" class="btn" id="all_delete_btn">すべてのパスワードを削除</a>
+        <div id="display_pass"></div>
+      </div>
+      <h1 id="msg"></h1>
+    </section>
+
+    <!-- モーダルをまとめたセクション -->
+    <section class="modal-section">
+      <!-- オーバーレイ -->
+      <div id="overlay" class="overlay js-modal-close"></div>
+      <!-- ログインモーダル -->
+      <div class="modal-window-login" id="modal-login">
+        <div class="login">
+          <input
+            type="email"
+            name="mail"
+            placeholder="ユーザーID"
+            id=""
+            class="login_input"
+          />
+          <input
+            type="password"
+            name="pass"
+            placeholder="パスワード"
+            id=""
+            class="login_input"
+          />
+
+          <input type="submit" value="登録" id="login-btn" />
+        </div>
+      </div>
+
+      <!-- パスワードの登録用モーダル -->
+      <div class="modal-window" id="modal-register">
+        <div class="login">
+          <input
+            type="text"
+            name="service"
+            placeholder="サービス名"
+            id=""
+            class="login_input"
+          />
+          <input
+            type="password"
+            name="pass"
+            placeholder="パスワード"
+            id=""
+            class="login_input"
+          />
+
+          <input type="submit" value="登録" id="register-btn" />
+        </div>
+      </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/password.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/display.js"></script>
+    <script src="./js/encrypt.js"></script>
+    <script src="./js/ajax.js"></script>
+    <script src="./js/query.js"></script>
+  </body>
+</html>
