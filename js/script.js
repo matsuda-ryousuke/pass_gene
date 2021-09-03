@@ -1,12 +1,7 @@
 // This is a JavaScript file
 
 window.addEventListener("DOMContentLoaded", function () {
-  // localStorage.removeItem("crypt_date");
-  // localStorage.removeItem("salt");
-  // localStorage.removeItem("password");
-
-  // // localStorage.removeItem("crypt_date");
-  // sessionStorage.removeItem("crypted");
+  // セッションストレージを削除
   sessionStorage.clear();
 
   var datas = localStorage.getItem("password");
@@ -107,44 +102,45 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
   // パスワード登録ボタンクリック
-  var service;
-  const modal_btn = document.getElementById("modal_btn");
-  modal_btn.addEventListener("click", function () {
-    if (sessionStorage.getItem("crypted")) {
-      service = window.prompt(
-        "パスワードに紐づけるサービス名を登録してください。",
-        ""
-      );
-      if (service) {
-        var password = Password.unescapeHtml(
-          document.getElementById("pass_box").innerHTML
-        );
-        var session_password = sessionStorage.getItem("new_pass");
-        var data = Register.local_storage_get("password");
+  // var service;
+  // const modal_btn = document.getElementById("modal_btn");
+  // modal_btn.addEventListener("click", function () {
+  //   if (sessionStorage.getItem("crypted")) {
+  //     // service = window.prompt(
+  //     //   "パスワードに紐づけるサービス名を登録してください。",
+  //     //   ""
+  //     // );
+  //     service = "testtest";
+  //     if (service) {
+  //       var password = Password.unescapeHtml(
+  //         document.getElementById("pass_box").innerHTML
+  //       );
+  //       var session_password = sessionStorage.getItem("new_pass");
+  //       var data = Register.local_storage_get("password");
 
-        // サービス名を記入 ＋ パスワードを表示している場合にのみ登録が可能
-        if (service !== "" && password !== "") {
-          // パスワード表示欄を弄られていた場合、不正処理とする
-          if (password != session_password) {
-            alert("不正な入力を検知しました。");
-          } else {
-            if (Display.check_service(data, service)) {
-              alert("確認");
-            }
-            password = Encrypt.encrypt_password(hash_phrase, password);
-            Register.local_storage_set(service, password);
-          }
-        } else {
-          alert("サービス名 もしくは パスワード欄が空欄です。");
-        }
+  //       // サービス名を記入 ＋ パスワードを表示している場合にのみ登録が可能
+  //       if (service !== "" && password !== "") {
+  //         // パスワード表示欄を弄られていた場合、不正処理とする
+  //         if (password != session_password) {
+  //           alert("不正な入力を検知しました。");
+  //         } else {
+  //           if (Display.check_service(data, service)) {
+  //             alert("確認");
+  //           }
+  //           password = Encrypt.encrypt_password(hash_phrase, password);
+  //           Register.local_storage_set(service, password);
+  //         }
+  //       } else {
+  //         alert("サービス名 もしくは パスワード欄が空欄です。");
+  //       }
 
-        var data = Register.local_storage_get("password");
-        Display.display_password(hash_phrase, data);
-      }
-    } else {
-      alert("不正な入力を検知しました。");
-    }
-  });
+  //       var data = Register.local_storage_get("password");
+  //       Display.display_password(hash_phrase, data);
+  //     }
+  //   } else {
+  //     alert("不正な入力を検知しました。");
+  //   }
+  // });
 
   // パスワード削除ボタンで、ローカルからパスワード組を削除
   const all_delete_btn = document.querySelector("#all_delete_btn");

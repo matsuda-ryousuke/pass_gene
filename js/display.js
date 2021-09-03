@@ -106,7 +106,7 @@ class Display {
 
           alert(copy_name + " のパスワードをコピーしました");
         } else {
-          alert("不正な入力を検知しました。");
+          alert("不正な入力を検知しましたあ。");
           // console.log(copy_item);
           // console.log(copy_item_decrypt);
         }
@@ -141,7 +141,7 @@ class Display {
             Display.display_password(pass_phrase, data);
           }
         } else {
-          alert("不正な入力を検知しました。");
+          alert("不正な入力を検知しましたい。");
         }
       });
     }

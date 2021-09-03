@@ -29,6 +29,7 @@
           href="#"
           class="btn btn--orange btn--radius js-modal-open hidden"
           id="modal_btn"
+          data-target="modal_pass"
           >このパスワードを登録する</a
         >
       </div>
@@ -99,51 +100,65 @@
 
     <!-- モーダルをまとめたセクション -->
     <section class="modal-section">
-      <!-- オーバーレイ -->
-      <div id="overlay" class="overlay js-modal-close"></div>
-      <!-- ログインモーダル -->
-      <div class="modal-window-login" id="modal-login">
-        <div class="login">
-          <input
-            type="email"
-            name="mail"
-            placeholder="ユーザーID"
-            id=""
-            class="login_input"
-          />
-          <input
-            type="password"
-            name="pass"
-            placeholder="パスワード"
-            id=""
-            class="login_input"
-          />
-
-          <input type="submit" value="登録" id="login-btn" />
-        </div>
-      </div>
-
       <!-- パスワードの登録用モーダル -->
-      <div class="modal-window" id="modal-register">
-        <div class="login">
-          <input
-            type="text"
-            name="service"
-            placeholder="サービス名"
-            id=""
-            class="login_input"
-          />
-          <input
-            type="password"
-            name="pass"
-            placeholder="パスワード"
-            id=""
-            class="login_input"
-          />
+      <article id="modal_pass" class="modal js-modal is_close">
+        <div class="modal-bg js-modal-close"></div>
+        <div class="modal-content">
+          <div class="modal-inner">
+            <div class="modal-item">
+              <div class="register">
+                <input
+                  type="text"
+                  name="service"
+                  placeholder="サービス名"
+                  id="register_service"
+                  class="register_input"
+                />
+                <input
+                  type="password"
+                  name="pass"
+                  placeholder="パスワード"
+                  id="register_pass"
+                  class="register_input"
+                />
 
-          <input type="submit" value="登録" id="register-btn" />
+                <input type="submit" value="登録" id="register-btn" />
+              </div>
+            </div>
+          </div>
+          <div class="btn-close js-modal-close">close</div>
         </div>
-      </div>
+      </article>
+
+      <!-- ログインモーダル -->
+      <article id="modal_login" class="modal js-modal is_close">
+        <div class="modal-bg js-modal-close"></div>
+        <div class="modal-content">
+          <div class="modal-inner">
+            <div class="modal-item">
+              <div class="login">
+                <input
+                  type="email"
+                  name="mail"
+                  placeholder="ユーザーID"
+                  id="login_mail"
+                  class="login_input"
+                />
+                <input
+                  type="password"
+                  name="pass"
+                  placeholder="パスワード"
+                  id="login_pass"
+                  class="login_input"
+                />
+
+                <input type="submit" value="登録" id="login-btn" />
+              </div>
+            </div>
+          </div>
+          <div class="btn-close js-modal-close">close</div>
+        </div>
+      </article>
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -156,5 +171,6 @@
     <script src="./js/encrypt.js"></script>
     <script src="./js/ajax.js"></script>
     <script src="./js/query.js"></script>
+    <script src="./js/modal.js"></script>
   </body>
 </html>
