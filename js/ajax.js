@@ -1,7 +1,27 @@
 $(function () {
+  // ユーザーが登録されているか確認→登録済みならばログインをするためのajax関数
   function login_ajax(mail, pass) {
     return $.ajax({
       url: "http://192.168.33.13/login.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        mail: mail,
+        pass: pass,
+      },
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      // Ajaxの通信に問題があった場合
+      $("#msg").html("エラーが発生しました。");
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
+    });
+  }
+
+  // ユーザー登録をするためのajax関数
+  function register_ajax(mail, pass) {
+    return $.ajax({
+      url: "http://192.168.33.13/register.php",
       type: "POST",
       dataType: "json",
       data: {
@@ -53,6 +73,7 @@ $(function () {
 
         // パスワード登録、表示画面を表示
         register_div.style.display = "block";
+        pass_div.style.display = "block";
 
         var passwords = data.pass;
         Display.display_password(hash_phrase, passwords);
@@ -63,17 +84,57 @@ $(function () {
       } else if (data.flag == "new") {
         console.log("新規登録");
 
+        $("#confirm_btn").click(function () {
+          // ログインフォームの値取得
+          var mail = $("#login_mail").val();
+          var pass = $("#login_pass").val();
+
+          // ajaxで登録処理
+          register_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
+            // 完了した場合、
+            console.log(data);
+            // console.log(JSON.parse(data));
+
+            console.log(data.flag);
+
+            // ハッシュフレーズ：入力パスワードのハッシュ化
+            var hash_phrase = CryptoJS.SHA256(pass);
+
+            window.alert("パスワードを承認しました。");
+
+            $("#login_div").hide();
+
+            // セッションストレージには、暗号鍵作成フラグを登録
+            sessionStorage.setItem("crypted", true);
+
+            // モーダルを閉じる
+            $(".js-modal").addClass("is_close").removeClass("is_open");
+            $("body").removeClass("fixed").css({ top: "" });
+
+            // パスワード登録、表示画面を表示
+
+            register_div.style.display = "block";
+            pass_div.style.display = "block";
+
+            var passwords = data.pass;
+            Display.display_password(hash_phrase, passwords);
+          });
+        });
+
         /* =================================
         パスワードミスの場合
       ================================= */
       } else if (data.flag == "miss") {
         console.log("パスワードミス");
 
+        window.alert("パスワードが間違っています。");
+
         /* =================================
         それ以外、想定していない出力の場合
       ================================= */
       } else {
         console.log("エラーが発生しました。");
+        window.alert("パスワードが間違っています。");
       }
 
       console.log(pass);
@@ -81,32 +142,36 @@ $(function () {
 
       // ログインフォームのパスワードをハッシュ化、パスフレーズとする
       var hash_phrase = CryptoJS.SHA256(pass);
-      // セッションIDを、パスフレーズで暗号化する
-      var encrypt_session = Encrypt.encrypt_password(hash_phrase, data.id);
-      console.log(encrypt_session);
 
-      // 現在時刻を取得する
-      var dateObj = new Date();
-      var text = "";
+      /* =================================セッションコメントアウト */
+      // // セッションIDを、パスフレーズで暗号化する
+      // var encrypt_session = Encrypt.encrypt_password(hash_phrase, data.id);
+      // console.log(encrypt_session);
 
-      text =
-        dateObj.getFullYear() +
-        "-" + //年の取得
-        ("00" + (dateObj.getMonth() + 1)).slice(-2) +
-        "-" + //月の取得 ※0~11で取得になるため+1
-        ("00" + dateObj.getDate()).slice(-2) +
-        " " + //日付の取得
-        ("00" + dateObj.getHours()).slice(-2) +
-        ":" + //時間の取得
-        ("00" + dateObj.getMinutes()).slice(-2) +
-        ":" + //分の取得
-        ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
+      // // 現在時刻を取得する
+      // var dateObj = new Date();
+      // var text = "";
 
-      console.log(text);
+      // text =
+      //   dateObj.getFullYear() +
+      //   "-" + //年の取得
+      //   ("00" + (dateObj.getMonth() + 1)).slice(-2) +
+      //   "-" + //月の取得 ※0~11で取得になるため+1
+      //   ("00" + dateObj.getDate()).slice(-2) +
+      //   " " + //日付の取得
+      //   ("00" + dateObj.getHours()).slice(-2) +
+      //   ":" + //時間の取得
+      //   ("00" + dateObj.getMinutes()).slice(-2) +
+      //   ":" + //分の取得
+      //   ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
 
-      // セッションストレージに暗号化セッション、有効期限を保存する
-      sessionStorage.setItem("id", encrypt_session);
-      sessionStorage.setItem("limit", data.limit);
+      // console.log(text);
+
+      // // セッションストレージに暗号化セッション、有効期限を保存する
+      // sessionStorage.setItem("id", encrypt_session);
+      // sessionStorage.setItem("limit", data.limit);
+
+      /* =================================セッションコメントアウト */
     });
 
     // プロミス、ajaxが終わる前にここの処理はされてしまうので、NG
@@ -114,15 +179,18 @@ $(function () {
     // console.log(user_id["id"]);
   });
 
-  function register_ajax(encrypt_password, service, session_id) {
+  /* =================================session_id => mail */
+
+  function post_ajax(encrypt_password, service, mail, pass) {
     return $.ajax({
-      url: "http://192.168.33.13/register.php",
+      url: "http://192.168.33.13/post.php",
       type: "POST",
       dataType: "json",
       data: {
-        pass: pass,
-        word: word,
+        encrypt_password: encrypt_password,
         service: service,
+        mail: mail,
+        pass: pass,
       },
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
@@ -133,11 +201,12 @@ $(function () {
     });
   }
 
-  $("#register-btn").click(function () {
+  $("#post-btn").click(function () {
     // 変数定義
 
-    var service = $("#register_service").val();
-    var pass = $("#register_pass").val();
+    var service = $("#post_service").val();
+    var mail = $("#post_mail").val();
+    var pass = $("#post_pass").val();
     var word = Password.unescapeHtml($("#pass_box").html());
     console.log(service);
     console.log(pass);
@@ -148,126 +217,147 @@ $(function () {
     var encrypt_password = Encrypt.encrypt_password(hash_phrase, word);
     console.log(encrypt_password);
 
-    // セッションストレージのセッションID（暗号化）を復号
-    var session_id = Encrypt.decrypt_password(
-      hash_phrase,
-      sessionStorage.getItem("id")
-    );
-    console.log(session_id);
+    /* =================================セッションコメントアウト */
+    // // セッションストレージのセッションID（暗号化）を復号
+    // var session_id = Encrypt.decrypt_password(
+    //   hash_phrase,
+    //   sessionStorage.getItem("id")
+    // );
+    // console.log(session_id);
 
-    // セッションIDの有効期限を取得
-    var limit = sessionStorage.getItem("limit");
-    console.log(limit);
+    // // セッションIDの有効期限を取得
+    // var limit = sessionStorage.getItem("limit");
+    // console.log(limit);
 
-    // 現在時刻を取得する
-    var dateObj = new Date();
-    var now = "";
+    // // 現在時刻を取得する
+    // var dateObj = new Date();
+    // var now = "";
 
-    now =
-      dateObj.getFullYear() +
-      "-" + //年の取得
-      ("00" + (dateObj.getMonth() + 1)).slice(-2) +
-      "-" + //月の取得 ※0~11で取得になるため+1
-      ("00" + dateObj.getDate()).slice(-2) +
-      " " + //日付の取得
-      ("00" + dateObj.getHours()).slice(-2) +
-      ":" + //時間の取得
-      ("00" + dateObj.getMinutes()).slice(-2) +
-      ":" + //分の取得
-      ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
+    // now =
+    //   dateObj.getFullYear() +
+    //   "-" + //年の取得
+    //   ("00" + (dateObj.getMonth() + 1)).slice(-2) +
+    //   "-" + //月の取得 ※0~11で取得になるため+1
+    //   ("00" + dateObj.getDate()).slice(-2) +
+    //   " " + //日付の取得
+    //   ("00" + dateObj.getHours()).slice(-2) +
+    //   ":" + //時間の取得
+    //   ("00" + dateObj.getMinutes()).slice(-2) +
+    //   ":" + //分の取得
+    //   ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
 
-    console.log(now);
+    // console.log(now);
 
-    console.log(limit <= now);
+    // console.log(limit <= now);
 
-    // 有効期限切れの場合、ページ再読み込みをかける
-    if (limit <= now) {
-      alert("ログインしなおしてください。");
-      location.reload();
-    }
+    // // 有効期限切れの場合、ページ再読み込みをかける
+    // if (limit <= now) {
+    //   alert("ログインしなおしてください。");
+    //   location.reload();
+    // }
 
-    // ajax処理
-    // register_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
-    //   // 完了した場合、
-    //   console.log(data);
-    //   // console.log(JSON.parse(data));
+    /* =================================セッションコメントアウト */
 
-    //   console.log(data.flag);
+    /* ===========================
+    ここからajax
+    ============================== */
+    // ajax処理;
+    post_ajax(encrypt_password, service, mail, pass).done(function (
+      data,
+      textStatus,
+      jqXHR
+    ) {
+      // 完了した場合、
+      console.log(data);
+      // console.log(JSON.parse(data));
 
-    //   /* =================================
-    //     ユーザー登録済みの場合
-    //   ================================= */
-    //   if (data.flag == "registered") {
-    //     console.log("登録済み");
+      console.log(data.flag);
 
-    //     // ハッシュフレーズ：入力パスワードのハッシュ化
-    //     var hash_phrase = CryptoJS.SHA256(pass);
+      /* =================================
+        パスワード登録成功の場合
+      ================================= */
+      if (data.flag == "success") {
+        console.log("登録済み");
 
-    //     window.alert("パスワードを承認しました。");
+        window.alert("パスワードを登録しました。");
 
-    //     // セッションストレージには、暗号鍵作成フラグを登録
-    //     sessionStorage.setItem("crypted", true);
+        // ハッシュフレーズ：入力パスワードのハッシュ化
+        var hash_phrase = CryptoJS.SHA256(pass);
 
-    //     // モーダルを閉じる
-    //     $(".js-modal").addClass("is_close").removeClass("is_open");
-    //     $("body").removeClass("fixed").css({ top: "" });
+        // モーダルを閉じる
+        $(".js-modal").addClass("is_close").removeClass("is_open");
+        $("body").removeClass("fixed").css({ top: "" });
 
-    //     // パスワード登録、表示画面を表示
-    //     register_div.style.display = "block";
+        // パスワード登録、表示画面を表示
+        register_div.style.display = "block";
+        pass_div.style.display = "block";
 
-    //     var passwords = data.pass;
-    //     Display.display_password(hash_phrase, passwords);
+        var passwords = data.pass;
+        Display.display_password(hash_phrase, passwords);
 
-    //     /* =================================
-    //     ユーザー未登録の場合
-    //   ================================= */
-    //   } else if (data.flag == "new") {
-    //     console.log("新規登録");
+        /* =================================
+        パスワードミスの場合
+      ================================= */
+      } else if (data.flag == "miss") {
+        window.alert("パスワードが間違っています。");
+        /* =================================
+        ユーザー未登録の場合
+      ================================= */
+      } else if (data.flag == "error") {
+        window.alert("登録されていないメールアドレスです。");
+        /* =================================
+        サービス名がすでに登録されている場合
+      ================================= */
+      } else if (data.flag == "isset") {
+        window.alert("サービス名がかぶっています。");
+        /* =================================
+        それ以外、想定していない出力の場合
+      ================================= */
+      } else {
+        console.log("エラーが発生しました。");
+      }
 
-    //     /* =================================
-    //     パスワードミスの場合
-    //   ================================= */
-    //   } else if (data.flag == "miss") {
-    //     console.log("パスワードミス");
+      console.log(pass);
+      console.log(data.id);
+    });
+  });
 
-    //     /* =================================
-    //     それ以外、想定していない出力の場合
-    //   ================================= */
-    //   } else {
-    //     console.log("エラーが発生しました。");
-    //   }
+  function delete_ajax(service, mail, pass, number) {
+    return $.ajax({
+      url: "http://192.168.33.13/delete.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        service: service,
+        mail: mail,
+        pass: pass,
+        number: number,
+      },
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      // Ajaxの通信に問題があった場合
+      $("#msg").html("エラーが発生しました。");
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
+    });
+  }
 
-    //   console.log(pass);
-    //   console.log(data.id);
+  $("#delete-btn").click(function () {
+    // 変数定義
 
-    //   // ログインフォームのパスワードをハッシュ化、パスフレーズとする
-    //   var hash_phrase = CryptoJS.SHA256(pass);
-    //   // セッションIDを、パスフレーズで暗号化する
-    //   var encrypt_session = Encrypt.encrypt_password(hash_phrase, data.id);
-    //   console.log(encrypt_session);
+    var service = $("#delete_service").val();
+    var mail = $("#delete_mail").val();
+    var pass = $("#delete_pass").val();
+    var number = $("#delete_number").val();
 
-    //   // 現在時刻を取得する
-    //   var dateObj = new Date();
-    //   var text = "";
-
-    //   text =
-    //     dateObj.getFullYear() +
-    //     "-" + //年の取得
-    //     ("00" + (dateObj.getMonth() + 1)).slice(-2) +
-    //     "-" + //月の取得 ※0~11で取得になるため+1
-    //     ("00" + dateObj.getDate()).slice(-2) +
-    //     " " + //日付の取得
-    //     ("00" + dateObj.getHours()).slice(-2) +
-    //     ":" + //時間の取得
-    //     ("00" + dateObj.getMinutes()).slice(-2) +
-    //     ":" + //分の取得
-    //     ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
-
-    //   console.log(text);
-
-    //   // セッションストレージに暗号化セッション、有効期限を保存する
-    //   sessionStorage.setItem("id", encrypt_session);
-    //   sessionStorage.setItem("limit", data.limit);
-    // });
+    delete_ajax(service, mail, pass, number).done(function (
+      data,
+      textStatus,
+      jqXHR
+    ) {
+      console.log(data);
+    });
+    // パスワード一覧表示
+    Display.display_password(pass_phrase, data);
   });
 });

@@ -1,40 +1,39 @@
 $(function () {
-  // ログイン時のajax
-  $("#login_btn").click(function () {
-    // ajax先のPHPURLを指定
-    var apiurl = "http://192.168.33.13";
+  $(document).ready(function () {
+    // セッションストレージを削除
+    sessionStorage.clear();
 
-    // input の中身を取得
-    var userid = $("input[name=userid]").val();
-    var password = $("input[name=password]").val();
+    var datas = localStorage.getItem("password");
+    console.log(datas);
 
-    var data = {
-      userid: userid,
-      password: password,
-    };
+    $("a").click(function () {
+      return false;
+    });
 
-    // Ajax通信
-    $.ajax({
-      // Ajax定義
-      type: "POST",
-      url: apiurl,
-      data: data,
-      dataType: "json",
-    })
-      .beforeSend(function (xhr) {
-        xhr.setRequestHeader(
-          "X-CSRF-Token",
-          $('meta[name="csrf-token"]').attr("content")
-        );
-        withCredentials: true;
-      })
-      .done(function (data, textStatus, jqXHR) {
-        console.log(data);
-        $("#msg").html("お問合せありがとうございました。");
-      })
-      .fail(function (jqXHR, textStatus, errorThrown) {
-        // Ajaxの通信に問題があった場合
-        $("#msg").html("エラーが発生しました。");
-      });
+    // パスワード生成、登録表示セクションの定義
+    const pass_div = $("#pass_div");
+    const register_div = $("#register_div");
+    const login_div = $("#login_div");
+    const password = $("#password");
+
+    // ログインセクション以外を非表示にする
+    login_div.css("display", "block");
+    pass_div.css("display", "none");
+    register_div.css("display", "none");
+    password.css("opacity", 0);
+
+    // Generate Passwordボタンでパスワード生成
+    $("#gene_btn").click(function () {
+      password.css("display", "block");
+      password.css("opacity", 1);
+
+      Password.get_pass2();
+    });
+
+    // パスワード削除ボタンで、ローカルからパスワード組を削除
+    $("#all_delete_btn").click(function () {
+      console.log("alldel");
+      // Display.all_delete_password(hash_phrase);
+    });
   });
 });

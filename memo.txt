@@ -165,3 +165,11 @@ function showResult(target, message){
     target.innerHTML = "";
   }, 3000);
 }
+
+
+結局のところ、セッションIDは不要であると思う。
+セッションIDをパスワードハッシュ値で暗号化、保護した場合、
+暗号鍵となるパスワードを入力ミスするだけでエラーにつながる。
+
+delete_ajax が途中
+display.js l130

@@ -1,42 +1,35 @@
 // This is a JavaScript file
 
 window.addEventListener("DOMContentLoaded", function () {
-  // セッションストレージを削除
-  sessionStorage.clear();
-
-  var datas = localStorage.getItem("password");
-  console.log(datas);
-
-  // aタグによる画面遷移を無効化
-  var a = document.getElementsByTagName("a");
-  for (var n of a) {
-    n.addEventListener("click", function (e) {
-      // return false;
-      e.preventDefault();
-    });
-  }
-
-  // パスワード生成、登録表示セクションの定義
-  const pass_div = document.querySelector("#pass_div");
-  const register_div = document.querySelector("#register_div");
-  const login_div = document.querySelector("#login_div");
-  const password = document.querySelector("#password");
-
-  // ログインセクション以外を非表示にする
-  login_div.style.display = "block";
-  pass_div.style.display = "none";
-  register_div.style.display = "none";
-  password.style.opacity = 0;
-
+  // // セッションストレージを削除
+  // sessionStorage.clear();
+  // var datas = localStorage.getItem("password");
+  // console.log(datas);
+  // // aタグによる画面遷移を無効化
+  // var a = document.getElementsByTagName("a");
+  // for (var n of a) {
+  //   n.addEventListener("click", function (e) {
+  //     // return false;
+  //     e.preventDefault();
+  //   });
+  // }
+  // // パスワード生成、登録表示セクションの定義
+  // const pass_div = document.querySelector("#pass_div");
+  // const register_div = document.querySelector("#register_div");
+  // const login_div = document.querySelector("#login_div");
+  // const password = document.querySelector("#password");
+  // // ログインセクション以外を非表示にする
+  // login_div.style.display = "block";
+  // pass_div.style.display = "none";
+  // register_div.style.display = "none";
+  // password.style.opacity = 0;
   // // パスワードを入力させる
   // const pass_phrase = window.prompt(
   //   "ユーザー認証用のパスワードを入力してください。",
   //   ""
   // );
-
   // // パスフレーズはハッシュ化をする
   // const hash_phrase = CryptoJS.SHA256(pass_phrase);
-
   // // パスワードが入力されたなら、
   // if (pass_phrase) {
   //   // 初期登録時にはその時刻、及びそれを元にしたソルトをローカルストレージに保存
@@ -45,21 +38,15 @@ window.addEventListener("DOMContentLoaded", function () {
   //     encrypt_date = Encrypt.encrypt_password(hash_phrase, now);
   //     localStorage.setItem("crypt_date", encrypt_date);
   //     localStorage.setItem("salt", CryptoJS.SHA256(hash_phrase + now));
-
   //     register_div.style.display = "block";
-
   //     // セッションストレージには、暗号鍵作成フラグを登録
   //     sessionStorage.setItem("crypted", true);
-
   //     window.alert("パスワードを承認しました。");
   //     // 認証パスワードを送信しなかったらキャンセル
-
   //     // pass_div.style.display = "none";
   //     register_div.style.display = "block";
   //     var data = Register.local_storage_get("password");
-
   //     Display.display_password(hash_phrase, data);
-
   //     // 登録済みなら、登録されていたsalt と 入力したパスワードから作成したsalt_test を確認
   //     // = 登録済みのパスワードと、入力パスワードが合致したかをチェック
   //   } else {
@@ -69,40 +56,32 @@ window.addEventListener("DOMContentLoaded", function () {
   //     );
   //     var salt_test = CryptoJS.SHA256(hash_phrase + crypt_date).toString();
   //     var salt = localStorage.getItem("salt");
-
   //     // salt の比較が違った場合、処理を抜ける
   //     if (salt_test !== salt) {
   //       window.alert("異なる入力値です。");
   //       // return;
   //     } else {
   //       register_div.style.display = "block";
-
   //       // セッションストレージには、暗号鍵作成フラグを登録
   //       sessionStorage.setItem("crypted", true);
-
   //       window.alert("パスワードを承認しました。");
   //       // 認証パスワードを送信しなかったらキャンセル
-
   //       // pass_div.style.display = "none";
   //       register_div.style.display = "block";
   //       var data = Register.local_storage_get("password");
-
   //       Display.display_password(hash_phrase, data);
   //     }
   //   }
   // } else {
   //   window.alert("キャンセルされました。");
   // }
-
-  // Generate Passwordボタンでパスワード生成
-  const gene_btn = document.querySelector("#gene_btn");
-  gene_btn.addEventListener("click", function () {
-    password.style.display = "block";
-    password.style.opacity = 1;
-
-    Password.get_pass2();
-  });
-
+  // // Generate Passwordボタンでパスワード生成
+  // const gene_btn = document.querySelector("#gene_btn");
+  // gene_btn.addEventListener("click", function () {
+  //   password.style.display = "block";
+  //   password.style.opacity = 1;
+  //   Password.get_pass2();
+  // });
   // パスワード登録ボタンクリック
   // var service;
   // const modal_btn = document.getElementById("modal_btn");
@@ -119,7 +98,6 @@ window.addEventListener("DOMContentLoaded", function () {
   //       );
   //       var session_password = sessionStorage.getItem("new_pass");
   //       var data = Register.local_storage_get("password");
-
   //       // サービス名を記入 ＋ パスワードを表示している場合にのみ登録が可能
   //       if (service !== "" && password !== "") {
   //         // パスワード表示欄を弄られていた場合、不正処理とする
@@ -135,7 +113,6 @@ window.addEventListener("DOMContentLoaded", function () {
   //       } else {
   //         alert("サービス名 もしくは パスワード欄が空欄です。");
   //       }
-
   //       var data = Register.local_storage_get("password");
   //       Display.display_password(hash_phrase, data);
   //     }
@@ -143,10 +120,9 @@ window.addEventListener("DOMContentLoaded", function () {
   //     alert("不正な入力を検知しました。");
   //   }
   // });
-
-  // パスワード削除ボタンで、ローカルからパスワード組を削除
-  const all_delete_btn = document.querySelector("#all_delete_btn");
-  all_delete_btn.addEventListener("click", function () {
-    Display.all_delete_password(hash_phrase);
-  });
+  // // パスワード削除ボタンで、ローカルからパスワード組を削除
+  // const all_delete_btn = document.querySelector("#all_delete_btn");
+  // all_delete_btn.addEventListener("click", function () {
+  //   Display.all_delete_password(hash_phrase);
+  // });
 });

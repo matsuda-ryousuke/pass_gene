@@ -7,10 +7,10 @@ class Display {
       display_pass.innerHTML = "";
     } else {
       // オブジェクトを表に出力
-      var text = "<dl>";
+      var text = '<div class="pagination">';
       for (var key in object) {
         console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
-        text += "<div>";
+        text += "<dl><div>";
         text += "<dt>" + key + "</dt>";
         text +=
           "<dd>" +
@@ -20,14 +20,24 @@ class Display {
           "</dd>";
         text += '<a href="#" class="copy_btn">copy</a>';
         text += '<a href="#" class="delete_btn">delete</a>';
-        text += "</div>";
+        text += "</div></dl>";
       }
-      text += "</dl>";
+      text += "</div>";
       display_pass.innerHTML = text;
 
       // コピー、削除ボタンの挙動を登録
       Display.copy_password(pass_phrase);
       Display.delete_password(pass_phrase);
+
+      $(function () {
+        $(".pagination").paginathing({
+          //親要素のclassを記述
+          perPage: 5, //1ページあたりの表示件数
+          prevText: "前へ", //1つ前のページへ移動するボタンのテキスト
+          nextText: "次へ", //1つ次のページへ移動するボタンのテキスト
+          activeClass: "navi-active", //現在のページ番号に任意のclassを付与できます
+        });
+      });
     }
   }
 
@@ -74,42 +84,28 @@ class Display {
     for (let i = 0; i < copy_btn.length; i++) {
       // 各コピーボタンに対して、クリックイベントを登録
       copy_btn[i].addEventListener("click", function () {
-        var data = Register.local_storage_get("password");
-        console.log(data);
-
         // コピーする対象の名前
         var copy_name = this.parentNode.children[0].innerHTML;
         // var copy_name_test = Object.keys(data)[i];
 
         // コピーするパスワード本体
         var copy_item = this.parentNode.children[1].innerHTML;
-        var copy_item_test = Object.values(data)[i];
-
-        var copy_item_decrypt = Encrypt.decrypt_password(
-          pass_phrase,
-          copy_item_test
-        );
+        // var copy_item_test = Object.values(data)[i];
 
         copy_item = unescapeHtml(copy_item);
-        if (copy_item == copy_item_decrypt) {
-          var listener = function (e) {
-            e.clipboardData.setData("text/plain", copy_item);
-            // 本来のイベントをキャンセル
-            e.preventDefault();
-            // 終わったら一応削除
-            document.removeEventListener("copy", listener);
-          };
-          // コピーのイベントが発生したときに、クリップボードに書き込むようにしておく
-          document.addEventListener("copy", listener);
-          // コピー
-          document.execCommand("copy");
+        var listener = function (e) {
+          e.clipboardData.setData("text/plain", copy_item);
+          // 本来のイベントをキャンセル
+          e.preventDefault();
+          // 終わったら一応削除
+          document.removeEventListener("copy", listener);
+        };
+        // コピーのイベントが発生したときに、クリップボードに書き込むようにしておく
+        document.addEventListener("copy", listener);
+        // コピー
+        document.execCommand("copy");
 
-          alert(copy_name + " のパスワードをコピーしました");
-        } else {
-          alert("不正な入力を検知しましたあ。");
-          // console.log(copy_item);
-          // console.log(copy_item_decrypt);
-        }
+        alert(copy_name + " のパスワードをコピーしました");
       });
     }
   }
@@ -118,33 +114,42 @@ class Display {
      * 指定パスワードを削除する関数
      =============================================================================*/
   static delete_password(pass_phrase) {
-    const delete_btn = document.getElementsByClassName("delete_btn");
+    $(function () {
+      const delete_btn = document.getElementsByClassName("delete_btn");
 
-    for (let i = 0; i < delete_btn.length; i++) {
-      delete_btn[i].addEventListener("click", function () {
-        var data = Register.local_storage_get("password");
+      for (let i = 0; i < delete_btn.length; i++) {
+        delete_btn[i].addEventListener("click", function () {
+          // 削除する対象の名前
 
-        // コピーする対象の名前
-        var delete_name = this.parentNode.children[0].innerHTML;
-        var delete_name_test = Object.keys(data)[i];
+          // var delete_name = this.parentNode.children[0].innerHTML;
+          // var delete_pass = this.parentNode.children[1].innerHTML;
+          var delete_name = $(this).parent().find("dt").html();
+          var delete_pass = $(this).closest("div").find("dd").html();
+          var scrollPos;
 
-        if (delete_name == delete_name_test) {
-          var result = window.confirm(
-            delete_name + " のパスワードを削除してもよろしいですか？"
-          );
-          if (result) {
-            let object = JSON.parse(localStorage.getItem("password"));
-            delete object[delete_name];
-            localStorage.setItem("password", JSON.stringify(object));
-            var data = Register.local_storage_get("password");
-            // パスワード一覧表示
-            Display.display_password(pass_phrase, data);
-          }
-        } else {
-          alert("不正な入力を検知しましたい。");
-        }
-      });
-    }
+          console.log(delete_name);
+          console.log(delete_pass);
+          console.log(i);
+
+          // 未登録の場合モーダルを表示し、新規登録するか確認
+          var target = "modal_delete";
+          var modal = document.getElementById(target);
+          $(modal).addClass("is_open").removeClass("is_close");
+          $("#delete_service").html(delete_name);
+          $("#delete_pass").html(delete_pass);
+          $("#delete_number").html(i);
+
+          // 削除用のモーダル表示
+          // モーダル表示
+          console.log("clicked");
+          scrollPos = $(window).scrollTop();
+          var target = $(this).data("target");
+          var modal = document.getElementById(target);
+          $(modal).addClass("is_open").removeClass("is_close");
+          $("body").addClass("fixed").css({ top: -scrollPos });
+        });
+      }
+    });
   }
 
   /**=============================================================================
