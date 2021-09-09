@@ -92,7 +92,6 @@
 
     <section id="register_div">
       <div class="display">
-        <a href="#" class="btn" id="all_delete_btn">すべてのパスワードを削除</a>
         <div id="display_pass"></div>
       </div>
       <h1 id="msg"></h1>
@@ -100,23 +99,31 @@
 
     <section id="login_div">
       <div class="login">
-        <input
-          type="email"
-          name="mail"
-          placeholder="ユーザーID"
-          id="login_mail"
-          class="login_input"
-        />
-        <input
-          type="password"
-          name="pass"
-          placeholder="パスワード"
-          id="login_pass"
-          class="login_input"
-        />
+        <h1>ログインフォーム</h1>
+        <div>
+          <input
+            type="email"
+            name="mail"
+            placeholder="ユーザーID"
+            id="login_mail"
+            class="login_input"
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            name="pass"
+            placeholder="パスワード"
+            id="login_pass"
+            class="login_input"
+          />
+        </div>
 
-        <input type="submit" value="登録" id="login-btn" />
+        <div>
+          <button type="submit" value="登録" id="login-btn">Login</button>
+        </div>
       </div>
+      <div><a href="" id="non-login">かんたんログインはこちら</a></div>
     </section>
 
     <!-- モーダルをまとめたセクション -->
@@ -199,10 +206,20 @@
           <div class="modal-inner">
             <div class="modal-item">
               <div class="confirm">
+                <p>
+                  以下のユーザーは登録されていません。新しくユーザーを登録しますか？
+                </p>
                 <h1>メールアドレス</h1>
                 <p id="confirm_mail"></p>
                 <h1>パスワード</h1>
                 <p id="confirm_pass"></p>
+
+                <h1>確認のためにパスワードを再度入力してください。</h1>
+                <input
+                  type="password"
+                  name="check_pass"
+                  id="double_confirm_pass"
+                />
 
                 <button type="button" id="cancel_btn" class="js-modal-close">
                   キャンセル
@@ -216,7 +233,7 @@
           <div class="btn-close js-modal-close">close</div>
         </div>
       </article>
-      <!-- ユーザー登録確認モーダル -->
+      <!-- パスワード削除確認モーダル -->
       <article id="modal_delete" class="modal js-modal is_close">
         <div class="modal-bg js-modal-close"></div>
         <div class="modal-content">

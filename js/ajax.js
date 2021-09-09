@@ -58,7 +58,8 @@ $(function () {
         console.log("登録済み");
 
         // ハッシュフレーズ：入力パスワードのハッシュ化
-        var hash_phrase = CryptoJS.SHA256(pass);
+        var hash_source = mail + pass;
+        var hash_phrase = CryptoJS.SHA256(hash_source);
 
         window.alert("パスワードを承認しました。");
 
@@ -75,7 +76,9 @@ $(function () {
         register_div.style.display = "block";
         pass_div.style.display = "block";
 
+        console.log(data.pass);
         var passwords = data.pass;
+
         Display.display_password(hash_phrase, passwords);
 
         /* =================================
@@ -84,41 +87,69 @@ $(function () {
       } else if (data.flag == "new") {
         console.log("新規登録");
 
+        var mail = $("#login_mail").val();
+        var pass = $("#login_pass").val();
+
+        console.log(mail + pass);
+
+        // パスワードのマスク作成
+        var mask = "";
+        mask = mask.padStart(pass.length, "*");
+        console.log(mask);
+
+        // 確認用のモーダルを表示する
+        var scrollPos = $(window).scrollTop();
+        var target = "modal_confirm";
+        var modal = document.getElementById(target);
+        $(modal).addClass("is_open").removeClass("is_close");
+        $("body").addClass("fixed").css({ top: -scrollPos });
+        $("#confirm_mail").html(mail);
+        $("#confirm_pass").html(mask);
+
+        // クリックイベントが連続で発火するバグの対策
+        $("#confirm_btn").off("click");
+        // 確認ボタンクリック時
         $("#confirm_btn").click(function () {
           // ログインフォームの値取得
-          var mail = $("#login_mail").val();
-          var pass = $("#login_pass").val();
+          var double = $("#double_confirm_pass").val();
+          console.log(double);
+          console.log("123123");
+          if (pass != double) {
+            alert("パスワードが合致しません。");
+            console.log(pass);
+            console.log(double);
+          } else {
+            // ajaxで登録処理
+            register_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
+              // 完了した場合、
+              console.log(data);
+              // console.log(JSON.parse(data));
 
-          // ajaxで登録処理
-          register_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
-            // 完了した場合、
-            console.log(data);
-            // console.log(JSON.parse(data));
+              console.log(data.flag);
 
-            console.log(data.flag);
+              // ハッシュフレーズ：入力パスワードのハッシュ化
+              var hash_source = mail + pass;
+              var hash_phrase = CryptoJS.SHA256(hash_source);
 
-            // ハッシュフレーズ：入力パスワードのハッシュ化
-            var hash_phrase = CryptoJS.SHA256(pass);
+              window.alert("パスワードを承認しました。");
 
-            window.alert("パスワードを承認しました。");
+              $("#login_div").hide();
 
-            $("#login_div").hide();
+              // セッションストレージには、暗号鍵作成フラグを登録
+              sessionStorage.setItem("crypted", true);
 
-            // セッションストレージには、暗号鍵作成フラグを登録
-            sessionStorage.setItem("crypted", true);
+              // モーダルを閉じる
+              $(".js-modal").addClass("is_close").removeClass("is_open");
+              $("body").removeClass("fixed").css({ top: "" });
 
-            // モーダルを閉じる
-            $(".js-modal").addClass("is_close").removeClass("is_open");
-            $("body").removeClass("fixed").css({ top: "" });
+              // パスワード登録、表示画面を表示
+              register_div.style.display = "block";
+              pass_div.style.display = "block";
 
-            // パスワード登録、表示画面を表示
-
-            register_div.style.display = "block";
-            pass_div.style.display = "block";
-
-            var passwords = data.pass;
-            Display.display_password(hash_phrase, passwords);
-          });
+              // 新規登録時にはパスワード登録はされていないのでnullを入力
+              Display.display_password(hash_phrase, null);
+            });
+          }
         });
 
         /* =================================
@@ -141,7 +172,8 @@ $(function () {
       console.log(data.id);
 
       // ログインフォームのパスワードをハッシュ化、パスフレーズとする
-      var hash_phrase = CryptoJS.SHA256(pass);
+      var hash_source = mail + pass;
+      var hash_phrase = CryptoJS.SHA256(hash_source);
 
       /* =================================セッションコメントアウト */
       // // セッションIDを、パスフレーズで暗号化する
@@ -213,7 +245,8 @@ $(function () {
     console.log(word);
 
     // 入力パスワードのハッシュ化
-    var hash_phrase = CryptoJS.SHA256(pass);
+    var hash_source = mail + pass;
+    var hash_phrase = CryptoJS.SHA256(hash_source);
     var encrypt_password = Encrypt.encrypt_password(hash_phrase, word);
     console.log(encrypt_password);
 
@@ -282,7 +315,8 @@ $(function () {
         window.alert("パスワードを登録しました。");
 
         // ハッシュフレーズ：入力パスワードのハッシュ化
-        var hash_phrase = CryptoJS.SHA256(pass);
+        var hash_source = mail + pass;
+        var hash_phrase = CryptoJS.SHA256(hash_source);
 
         // モーダルを閉じる
         $(".js-modal").addClass("is_close").removeClass("is_open");
@@ -360,7 +394,8 @@ $(function () {
     ) {
       console.log(data);
       // パスワード一覧表示
-      var hash_phrase = CryptoJS.SHA256(pass);
+      var hash_source = mail + pass;
+      var hash_phrase = CryptoJS.SHA256(hash_source);
       Display.display_password(hash_phrase, data.pass);
     });
   });

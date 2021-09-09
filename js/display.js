@@ -3,6 +3,9 @@ class Display {
      * 取得したパスワードを表示する関数
      =============================================================================*/
   static display_password(pass_phrase, object) {
+    console.log(object);
+    console.log(object == null);
+
     if (object == null) {
       display_pass.innerHTML = "";
     } else {

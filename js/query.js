@@ -35,5 +35,14 @@ $(function () {
       console.log("alldel");
       // Display.all_delete_password(hash_phrase);
     });
+
+    $("#non-login").click(function () {
+      // パスワード生成セクション以外を非表示にする
+      login_div.css("display", "none");
+      pass_div.css("display", "block");
+      register_div.css("display", "none");
+      password.css("opacity", 0);
+      alert("かんたんログインしました。");
+    });
   });
 });

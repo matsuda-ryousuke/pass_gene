@@ -173,3 +173,5 @@ function showResult(target, message){
 
 delete_ajax が途中
 display.js l130
+
+ログインフォーム、未登録でパスワードを間違えた場合、イベントが連続で発火してしまうバグ
