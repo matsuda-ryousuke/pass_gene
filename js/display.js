@@ -136,8 +136,8 @@ class Display {
           var modal = document.getElementById(target);
           $(modal).addClass("is_open").removeClass("is_close");
           $("#delete_service").html(delete_name);
-          $("#delete_pass").html(delete_pass);
-          $("#delete_number").html(i);
+          $("#delete_password").html(delete_pass);
+          $("#delete_number").val(i);
 
           // 削除用のモーダル表示
           // モーダル表示

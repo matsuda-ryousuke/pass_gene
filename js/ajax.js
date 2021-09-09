@@ -342,13 +342,16 @@ $(function () {
     });
   }
 
-  $("#delete-btn").click(function () {
+  $("#delete_btn").click(function () {
     // 変数定義
 
-    var service = $("#delete_service").val();
+    var service = $("#delete_service").html();
     var mail = $("#delete_mail").val();
     var pass = $("#delete_pass").val();
     var number = $("#delete_number").val();
+    console.log(mail);
+    console.log(pass);
+    console.log(number);
 
     delete_ajax(service, mail, pass, number).done(function (
       data,
@@ -356,8 +359,9 @@ $(function () {
       jqXHR
     ) {
       console.log(data);
+      // パスワード一覧表示
+      var hash_phrase = CryptoJS.SHA256(pass);
+      Display.display_password(hash_phrase, data.pass);
     });
-    // パスワード一覧表示
-    Display.display_password(pass_phrase, data);
   });
 });
