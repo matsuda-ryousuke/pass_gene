@@ -27,7 +27,7 @@
       <div id="get_pass">
         <a
           href="#"
-          class="btn btn--orange btn--radius js-modal-open hidden"
+          class="btn btn--purple btn--radius js-modal-open hidden"
           id="modal_btn"
           data-target="modal_pass"
           >このパスワードを登録する</a
@@ -98,13 +98,21 @@
     </section>
 
     <section id="login_div">
+      <div class="alert">
+        <h1>注意</h1>
+        <p>
+          本サイトは、ポートフォリオ用のデモサイトです。<br />正規のメールアドレス、パスワードを登録する際は、十分にご留意ください。<br />
+          本サイトを使用する上で生じたいかなる不利益につきましても、作者は責任を負いかねますのでご了承ください。
+        </p>
+      </div>
+
       <div class="login">
         <h1>ログインフォーム</h1>
         <div>
           <input
             type="email"
             name="mail"
-            placeholder="ユーザーID"
+            placeholder="xxx@example.com"
             id="login_mail"
             class="login_input"
           />
@@ -113,7 +121,7 @@
           <input
             type="password"
             name="pass"
-            placeholder="パスワード"
+            placeholder="my-password"
             id="login_pass"
             class="login_input"
           />
@@ -135,33 +143,41 @@
           <div class="modal-inner">
             <div class="modal-item">
               <div class="register">
-                <h1>パスワードを登録します。</h1>
+                <h1>パスワードの登録</h1>
                 <p>
                   紐づけるサービス名、ユーザー自身のメールアドレス、パスワードを入力してください。
                 </p>
-                <input
-                  type="text"
-                  name="service"
-                  placeholder="サービス名"
-                  id="post_service"
-                  class="register_input"
-                />
-                <input
-                  type="email"
-                  name="mail"
-                  placeholder="メールアドレス"
-                  id="post_mail"
-                  class="register_input"
-                />
-                <input
-                  type="password"
-                  name="pass"
-                  placeholder="パスワード"
-                  id="post_pass"
-                  class="register_input"
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="service"
+                    placeholder="test-service"
+                    id="post_service"
+                    class="register_input"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    name="mail"
+                    placeholder="xxx@example.com"
+                    id="post_mail"
+                    class="register_input"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    name="pass"
+                    placeholder="my-password"
+                    id="post_pass"
+                    class="register_input"
+                  />
+                </div>
 
-                <input type="submit" value="登録" id="post-btn" />
+                <div class="register-button">
+                  <button type="button" value="" id="post-btn">登録</button>
+                </div>
               </div>
             </div>
           </div>
@@ -179,14 +195,14 @@
                 <input
                   type="email"
                   name="mail"
-                  placeholder="ユーザーID"
+                  placeholder="xxx@example.com"
                   id="login_mail"
                   class="login_input"
                 />
                 <input
                   type="password"
                   name="pass"
-                  placeholder="パスワード"
+                  placeholder="my-password"
                   id="login_pass"
                   class="login_input"
                 />
@@ -240,37 +256,44 @@
           <div class="modal-inner">
             <div class="modal-item">
               <div class="delete">
-                <h1>パスワードを削除します。</h1>
+                <h1>パスワードの削除</h1>
                 <p>
-                  削除するパスワードを確認してから、ユーザー自身のメールアドレス、パスワードを入力してください。
+                  パスワードを削除するサービスを確認してから、ユーザー自身のメールアドレス、パスワードを入力してください。
                 </p>
-                <h1>メールアドレス</h1>
-                <p id="delete_service"></p>
-                <h1>パスワード</h1>
-                <p id="delete_password"></p>
+                <h2>サービス名</h2>
+                <p class="delete-p" id="delete_service"></p>
 
-                <input
-                  type="email"
-                  name="mail"
-                  placeholder="メールアドレス"
-                  id="delete_mail"
-                  class="delete_input"
-                />
-                <input
-                  type="password"
-                  name="pass"
-                  placeholder="パスワード"
-                  id="delete_pass"
-                  class="delete_input"
-                />
+                <div>
+                  <input
+                    type="email"
+                    name="mail"
+                    placeholder="xxx@example.com"
+                    id="delete_mail"
+                    class="delete_input"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    name="pass"
+                    placeholder="my-password"
+                    id="delete_pass"
+                    class="delete_input"
+                  />
+                </div>
                 <input type="hidden" name="number" id="delete_number" />
 
-                <button type="button" id="cancel_btn" class="js-modal-close">
-                  キャンセル
-                </button>
-                <button type="button" id="delete_btn" class="js-modal-close">
-                  確認
-                </button>
+                <div class="delete-button">
+                  <div>
+                    <button
+                      type="button"
+                      id="delete_btn"
+                      class="js-modal-closee"
+                    >
+                      削除
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

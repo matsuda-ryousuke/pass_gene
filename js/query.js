@@ -36,6 +36,43 @@ $(function () {
       // Display.all_delete_password(hash_phrase);
     });
 
+    // パスワード内の特殊文字をアンエスケープする関数
+    var unescapeHtml = function (target) {
+      if (typeof target !== "string") return target;
+
+      var patterns = {
+        "&lt;": "<",
+        "&gt;": ">",
+        "&amp;": "&",
+        "&quot;": '"',
+        "&#x27;": "'",
+        "&#x60;": "`",
+      };
+
+      return target.replace(/&(lt|gt|amp|quot|#x27|#x60);/g, function (match) {
+        return patterns[match];
+      });
+    };
+    $("#pass_box").click(function () {
+      // コピーするパスワード本体
+      var copy_item = this.innerHTML;
+
+      copy_item = unescapeHtml(copy_item);
+      var listener = function (e) {
+        e.clipboardData.setData("text/plain", copy_item);
+        // 本来のイベントをキャンセル
+        e.preventDefault();
+        // 終わったら一応削除
+        document.removeEventListener("copy", listener);
+      };
+      // コピーのイベントが発生したときに、クリップボードに書き込むようにしておく
+      document.addEventListener("copy", listener);
+      // コピー
+      document.execCommand("copy");
+
+      alert("パスワードをコピーしました");
+    });
+
     $("#non-login").click(function () {
       // パスワード生成セクション以外を非表示にする
       login_div.css("display", "none");

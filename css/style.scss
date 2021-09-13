@@ -53,6 +53,16 @@ a.btn--orange:hover {
   color: #fff;
   background: #f56500;
 }
+.btn--purple,
+a.btn--purple {
+  color: #fff;
+  background-color: #008ff5;
+}
+.btn--purple:hover,
+a.btn--purple:hover {
+  color: #fff;
+  background: #0095ff;
+}
 
 a.btn--radius {
   border-radius: 100vh;
@@ -142,20 +152,20 @@ main {
 .password {
   &_danger {
     text-align: center;
-    background: #ff8484;
+    background: #ffb3b3;
     transition: 0.3s;
     animation: to_danger 0.5s;
     -webkit-animation: to_danger 0.5s;
   }
   &_normal {
     text-align: center;
-    background: #ffff9e;
+    background: #ffffb3;
     transition: 0.3s;
   }
 
   &_safe {
     text-align: center;
-    background: #93ffc9;
+    background: #b2ffd8;
     transition: 0.3s;
   }
 }
@@ -222,57 +232,6 @@ main {
       border-top-right-radius: 3px;
       border-bottom-right-radius: 3px;
       width: 40%;
-    }
-
-    .copy_btn {
-      padding: 0;
-    }
-
-    .copy_btn a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1em 2em;
-      width: 20px;
-      color: #2285b1;
-      font-size: 18px;
-      font-weight: 700;
-      border: 2px solid #2285b1;
-      margin-left: 10px;
-    }
-
-    .copy_btn a:hover {
-      color: #333333;
-      text-decoration: none;
-      background-color: #a0c4d3;
-    }
-
-    .copy_btn a:hover::after {
-      border-top: 3px solid #333333;
-      border-right: 3px solid #333333;
-    }
-
-    .delete_btn a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1em 2em;
-      width: 20px;
-      color: #ff9393;
-      font-size: 18px;
-      font-weight: 700;
-      border: 2px solid #ff9393;
-    }
-
-    .delete_btn a:hover {
-      color: #333333;
-      text-decoration: none;
-      background-color: #ffb7b7;
-    }
-
-    .delete_btn a:hover::after {
-      border-top: 3px solid #333333;
-      border-right: 3px solid #333333;
     }
   }
 }
@@ -519,11 +478,21 @@ ul.pagination {
 // }
 
 /* ログインフォーム */
-.login {
+.login,
+.delete,
+.register {
   text-align: center;
   h1 {
     font-size: 25px;
     margin-bottom: 15px;
+  }
+  h2 {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+  p.delete-p {
+    font-size: 20px;
+    font-weight: bold;
   }
   input {
     margin: 15px;
@@ -547,4 +516,44 @@ ul.pagination {
     color: #000066; /* 背景色     */
     background: #ffffff; /* 文字色     */
   }
+  &-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* コピー、削除ボタン */
+.copy_btn,
+a.copy_btn {
+  color: #fff;
+  background-color: #00a497;
+  padding: 0.5rem 2rem;
+}
+.copy_btn:hover,
+a.copy_btn:hover {
+  color: #fff;
+  background: #00ccbb;
+}
+
+.delete_btn,
+a.delete_btn {
+  color: #fff;
+  background-color: #ff9393;
+  padding: 0.5rem 2rem;
+}
+.delete_btn:hover,
+a.delete_btn:hover {
+  color: #fff;
+  background: #ffb7b7;
+}
+
+.alert {
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  text-align: center;
+  margin-bottom: 30px;
 }

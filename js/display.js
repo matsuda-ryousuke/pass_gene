@@ -23,8 +23,8 @@ class Display {
             Encrypt.decrypt_password(pass_phrase, object[key])
           ) +
           "</dd>";
-        text += '<a href="#" class="copy_btn">copy</a>';
-        text += '<a href="#" class="delete_btn">delete</a>';
+        text += '<a href="#" class="btn copy_btn">copy</a>';
+        text += '<a href="#" class="btn delete_btn">delete</a>';
         text += "</div></dl>";
       }
       text += "</div>";
@@ -136,12 +136,11 @@ class Display {
           console.log(delete_pass);
           console.log(i);
 
-          // 未登録の場合モーダルを表示し、新規登録するか確認
+          // 未登録の場合モーダルを表示し、削除するか確認
           var target = "modal_delete";
           var modal = document.getElementById(target);
           $(modal).addClass("is_open").removeClass("is_close");
           $("#delete_service").html(delete_name);
-          $("#delete_password").html(delete_pass);
           $("#delete_number").val(i);
 
           // 削除用のモーダル表示

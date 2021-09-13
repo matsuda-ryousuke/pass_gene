@@ -403,10 +403,23 @@ $(function () {
       jqXHR
     ) {
       console.log(data);
-      // パスワード一覧表示
-      var hash_source = mail + pass;
-      var hash_phrase = CryptoJS.SHA256(hash_source);
-      Display.display_password(hash_phrase, data.passwords);
+      if (data.flag == "success") {
+        $(".js-modal").addClass("is_close").removeClass("is_open");
+        $("body").removeClass("fixed").css({ top: "" });
+        // $(window).scrollTop(scrollPos);
+
+        // パスワード一覧表示
+        console.log(data.mail);
+        console.log(data.pass);
+
+        var hash_source = data.mail + data.pass;
+        var hash_phrase = CryptoJS.SHA256(hash_source);
+        Display.display_password(hash_phrase, data.passwords);
+      } else {
+        window.alert("エラーが発生しました。");
+        $(".js-modal").addClass("is_close").removeClass("is_open");
+        $("body").removeClass("fixed").css({ top: "" });
+      }
     });
   });
 });

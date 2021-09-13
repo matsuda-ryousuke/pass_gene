@@ -54,6 +54,18 @@ a.btn--orange:hover {
   background: #f56500;
 }
 
+.btn--purple,
+a.btn--purple {
+  color: #fff;
+  background-color: #008ff5;
+}
+
+.btn--purple:hover,
+a.btn--purple:hover {
+  color: #fff;
+  background: #0095ff;
+}
+
 a.btn--radius {
   border-radius: 100vh;
 }
@@ -166,7 +178,7 @@ main {
 
 .password_danger {
   text-align: center;
-  background: #ff8484;
+  background: #ffb3b3;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   animation: to_danger 0.5s;
@@ -175,14 +187,14 @@ main {
 
 .password_normal {
   text-align: center;
-  background: #ffff9e;
+  background: #ffffb3;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
 .password_safe {
   text-align: center;
-  background: #93ffc9;
+  background: #b2ffd8;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
@@ -290,69 +302,6 @@ main {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   width: 40%;
-}
-
-#register_div #display_pass .copy_btn {
-  padding: 0;
-}
-
-#register_div #display_pass .copy_btn a {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1em 2em;
-  width: 20px;
-  color: #2285b1;
-  font-size: 18px;
-  font-weight: 700;
-  border: 2px solid #2285b1;
-  margin-left: 10px;
-}
-
-#register_div #display_pass .copy_btn a:hover {
-  color: #333333;
-  text-decoration: none;
-  background-color: #a0c4d3;
-}
-
-#register_div #display_pass .copy_btn a:hover::after {
-  border-top: 3px solid #333333;
-  border-right: 3px solid #333333;
-}
-
-#register_div #display_pass .delete_btn a {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 1em 2em;
-  width: 20px;
-  color: #ff9393;
-  font-size: 18px;
-  font-weight: 700;
-  border: 2px solid #ff9393;
-}
-
-#register_div #display_pass .delete_btn a:hover {
-  color: #333333;
-  text-decoration: none;
-  background-color: #ffb7b7;
-}
-
-#register_div #display_pass .delete_btn a:hover::after {
-  border-top: 3px solid #333333;
-  border-right: 3px solid #333333;
 }
 
 .register {
@@ -580,20 +529,42 @@ ul.pagination {
 
 /* モーダルウィンドウ */
 /* ログインフォーム */
-.login {
+.login,
+.delete,
+.register {
   text-align: center;
 }
 
-.login h1 {
+.login h1,
+.delete h1,
+.register h1 {
   font-size: 25px;
   margin-bottom: 15px;
 }
 
-.login input {
+.login h2,
+.delete h2,
+.register h2 {
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+.login p.delete-p,
+.delete p.delete-p,
+.register p.delete-p {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.login input,
+.delete input,
+.register input {
   margin: 15px;
 }
 
-.login button {
+.login button,
+.delete button,
+.register button {
   display: inline-block;
   border-radius: 5%;
   /* 角丸       */
@@ -621,7 +592,9 @@ ul.pagination {
   /* 枠の指定 */
 }
 
-.login button:hover {
+.login button:hover,
+.delete button:hover,
+.register button:hover {
   -webkit-box-shadow: none;
           box-shadow: none;
   /* カーソル時の影消去 */
@@ -629,5 +602,57 @@ ul.pagination {
   /* 背景色     */
   background: #ffffff;
   /* 文字色     */
+}
+
+.login-button,
+.delete-button,
+.register-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+/* コピー、削除ボタン */
+.copy_btn,
+a.copy_btn {
+  color: #fff;
+  background-color: #00a497;
+  padding: 0.5rem 2rem;
+}
+
+.copy_btn:hover,
+a.copy_btn:hover {
+  color: #fff;
+  background: #00ccbb;
+}
+
+.delete_btn,
+a.delete_btn {
+  color: #fff;
+  background-color: #ff9393;
+  padding: 0.5rem 2rem;
+}
+
+.delete_btn:hover,
+a.delete_btn:hover {
+  color: #fff;
+  background: #ffb7b7;
+}
+
+.alert {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.alert h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 /*# sourceMappingURL=style.css.map */
