@@ -570,14 +570,24 @@ a.delete_btn:hover {
     margin-bottom: 1px;
   }
   &_ttl {
-    background: #aaa;
+    background: #ccc;
     width: 20%;
     padding: 0.9rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &_content {
-    background: #ddd;
+    background: #eee;
     width: 50%;
     padding: 0.9rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &_btns a {
+    display: block;
+    padding: 1.5rem 2rem;
   }
 }
 @media screen and (max-width: 768px) {

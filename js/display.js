@@ -127,10 +127,14 @@ class Display {
         delete_btn[i].addEventListener("click", function () {
           // 削除する対象の名前
 
-          // var delete_name = this.parentNode.children[0].innerHTML;
-          // var delete_pass = this.parentNode.children[1].innerHTML;
-          var delete_name = $(this).parent().find("dt").html();
-          var delete_pass = $(this).closest("div").find("dd").html();
+          var delete_name = $(this)
+            .closest(".pass_line")
+            .find(".pass_ttl")
+            .html();
+          var delete_pass = $(this)
+            .closest(".pass_line")
+            .find(".pass_content")
+            .html();
           var scrollPos;
 
           // console.log(delete_name);
@@ -142,6 +146,7 @@ class Display {
           var modal = document.getElementById(target);
           $(modal).addClass("is_open").removeClass("is_close");
           $("#delete_service").html(delete_name);
+          $("#delete_password").val(delete_pass);
           $("#delete_number").val(i);
 
           // 削除用のモーダル表示

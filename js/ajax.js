@@ -380,9 +380,9 @@ $(function () {
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      // console.log(jqXHR);
-      // console.log(textStatus);
-      // console.log(errorThrown);
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
     });
   }
 
@@ -392,25 +392,35 @@ $(function () {
     var service = $("#delete_service").html();
     var mail = $("#delete_mail").val();
     var pass = $("#delete_pass").val();
+    var password = $("#delete_password").val();
     var number = $("#delete_number").val();
-    // console.log(mail);
-    // console.log(pass);
-    // console.log(number);
+
+    var hash_source = mail + pass;
+    var hash_phrase = CryptoJS.SHA256(hash_source);
+
+    var encrypt_password = Encrypt.encrypt_password(hash_phrase, password);
+
+    console.log(mail);
+    console.log(pass);
+    console.log(password);
+    console.log(number);
+
+    console.log(encrypt_password);
 
     delete_ajax(service, mail, pass, number).done(function (
       data,
       textStatus,
       jqXHR
     ) {
-      // console.log(data);
+      console.log(data);
       if (data.flag == "success") {
         $(".js-modal").addClass("is_close").removeClass("is_open");
         $("body").removeClass("fixed").css({ top: "" });
         // $(window).scrollTop(scrollPos);
 
         // パスワード一覧表示
-        // console.log(data.mail);
-        // console.log(data.pass);
+        console.log(data.mail);
+        console.log(data.pass);
 
         var hash_source = data.mail + data.pass;
         var hash_phrase = CryptoJS.SHA256(hash_source);
