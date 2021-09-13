@@ -12,9 +12,9 @@ $(function () {
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      console.log(jqXHR);
-      console.log(textStatus);
-      console.log(errorThrown);
+      // console.log(jqXHR);
+      // console.log(textStatus);
+      // console.log(errorThrown);
     });
   }
 
@@ -31,9 +31,9 @@ $(function () {
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      console.log(jqXHR);
-      console.log(textStatus);
-      console.log(errorThrown);
+      // console.log(jqXHR);
+      // console.log(textStatus);
+      // console.log(errorThrown);
     });
   }
 
@@ -46,24 +46,24 @@ $(function () {
     // ajax処理
     login_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
       // 完了した場合、
-      console.log(data);
-      // console.log(JSON.parse(data));
+      // console.log(data);
+      // // console.log(JSON.parse(data));
 
-      console.log(data.flag);
+      // console.log(data.flag);
 
       /* =================================
         ユーザー登録済みの場合
       ================================= */
       if (data.flag == "registered") {
-        console.log("登録済み");
+        // console.log("登録済み");
 
         // ハッシュフレーズ：入力パスワードのハッシュ化
         // var hash_source = mail + pass;
-        console.log(mail);
-        console.log(pass);
+        // console.log(mail);
+        // console.log(pass);
         var hash_source = data.mail + data.pass;
-        console.log(data.mail);
-        console.log(data.pass);
+        // console.log(data.mail);
+        // console.log(data.pass);
 
         var hash_phrase = CryptoJS.SHA256(hash_source);
 
@@ -82,10 +82,10 @@ $(function () {
         register_div.style.display = "block";
         pass_div.style.display = "block";
 
-        console.log(data.passwords);
+        // console.log(data.passwords);
         var passwords = data.passwords;
-        console.log(hash_phrase);
-        console.log(hash_source);
+        // console.log(hash_phrase);
+        // console.log(hash_source);
 
         Display.display_password(hash_phrase, passwords);
 
@@ -93,17 +93,17 @@ $(function () {
         ユーザー未登録の場合
       ================================= */
       } else if (data.flag == "new") {
-        console.log("新規登録");
+        // console.log("新規登録");
 
         var mail = $("#login_mail").val();
         var pass = $("#login_pass").val();
 
-        console.log(mail + pass);
+        // console.log(mail + pass);
 
         // パスワードのマスク作成
         var mask = "";
         mask = mask.padStart(pass.length, "*");
-        console.log(mask);
+        // console.log(mask);
 
         // 確認用のモーダルを表示する
         var scrollPos = $(window).scrollTop();
@@ -120,20 +120,20 @@ $(function () {
         $("#confirm_btn").click(function () {
           // ログインフォームの値取得
           var double = $("#double_confirm_pass").val();
-          console.log(double);
-          console.log("123123");
+          // console.log(double);
+          // console.log("123123");
           if (pass != double) {
             alert("パスワードが合致しません。");
-            console.log(pass);
-            console.log(double);
+            // console.log(pass);
+            // console.log(double);
           } else {
             // ajaxで登録処理
             register_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
               // 完了した場合、
-              console.log(data);
-              // console.log(JSON.parse(data));
+              // console.log(data);
+              // // console.log(JSON.parse(data));
 
-              console.log(data.flag);
+              // console.log(data.flag);
 
               // ハッシュフレーズ：入力パスワードのハッシュ化
               var hash_source = mail + pass;
@@ -164,7 +164,7 @@ $(function () {
         パスワードミスの場合
       ================================= */
       } else if (data.flag == "miss") {
-        console.log("パスワードミス");
+        // console.log("パスワードミス");
 
         window.alert("パスワードが間違っています。");
 
@@ -172,12 +172,12 @@ $(function () {
         それ以外、想定していない出力の場合
       ================================= */
       } else {
-        console.log("エラーが発生しました。");
+        // console.log("エラーが発生しました。");
         window.alert("パスワードが間違っています。");
       }
 
-      console.log(pass);
-      console.log(data.id);
+      // console.log(pass);
+      // console.log(data.id);
 
       // ログインフォームのパスワードをハッシュ化、パスフレーズとする
       var hash_source = mail + pass;
@@ -186,7 +186,7 @@ $(function () {
       /* =================================セッションコメントアウト */
       // // セッションIDを、パスフレーズで暗号化する
       // var encrypt_session = Encrypt.encrypt_password(hash_phrase, data.id);
-      // console.log(encrypt_session);
+      // // console.log(encrypt_session);
 
       // // 現在時刻を取得する
       // var dateObj = new Date();
@@ -205,7 +205,7 @@ $(function () {
       //   ":" + //分の取得
       //   ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
 
-      // console.log(text);
+      // // console.log(text);
 
       // // セッションストレージに暗号化セッション、有効期限を保存する
       // sessionStorage.setItem("id", encrypt_session);
@@ -215,8 +215,8 @@ $(function () {
     });
 
     // プロミス、ajaxが終わる前にここの処理はされてしまうので、NG
-    // console.log(user_id);
-    // console.log(user_id["id"]);
+    // // console.log(user_id);
+    // // console.log(user_id["id"]);
   });
 
   /* =================================session_id => mail */
@@ -235,9 +235,9 @@ $(function () {
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      console.log(jqXHR);
-      console.log(textStatus);
-      console.log(errorThrown);
+      // console.log(jqXHR);
+      // console.log(textStatus);
+      // console.log(errorThrown);
     });
   }
 
@@ -248,15 +248,15 @@ $(function () {
     var mail = $("#post_mail").val();
     var pass = $("#post_pass").val();
     var word = Password.unescapeHtml($("#pass_box").html());
-    console.log(service);
-    console.log(pass);
-    console.log(word);
+    // console.log(service);
+    // console.log(pass);
+    // console.log(word);
 
     // 入力パスワードのハッシュ化
     var hash_source = mail + pass;
     var hash_phrase = CryptoJS.SHA256(hash_source);
     var encrypt_password = Encrypt.encrypt_password(hash_phrase, word);
-    console.log(encrypt_password);
+    // console.log(encrypt_password);
 
     /* =================================セッションコメントアウト */
     // // セッションストレージのセッションID（暗号化）を復号
@@ -264,11 +264,11 @@ $(function () {
     //   hash_phrase,
     //   sessionStorage.getItem("id")
     // );
-    // console.log(session_id);
+    // // console.log(session_id);
 
     // // セッションIDの有効期限を取得
     // var limit = sessionStorage.getItem("limit");
-    // console.log(limit);
+    // // console.log(limit);
 
     // // 現在時刻を取得する
     // var dateObj = new Date();
@@ -287,9 +287,9 @@ $(function () {
     //   ":" + //分の取得
     //   ("00" + dateObj.getSeconds()).slice(-2); //秒の取得
 
-    // console.log(now);
+    // // console.log(now);
 
-    // console.log(limit <= now);
+    // // console.log(limit <= now);
 
     // // 有効期限切れの場合、ページ再読み込みをかける
     // if (limit <= now) {
@@ -309,24 +309,24 @@ $(function () {
       jqXHR
     ) {
       // 完了した場合、
-      console.log(data);
-      // console.log(JSON.parse(data));
+      // console.log(data);
+      // // console.log(JSON.parse(data));
 
-      console.log(data.flag);
+      // console.log(data.flag);
 
       /* =================================
         パスワード登録成功の場合
       ================================= */
       if (data.flag == "success") {
-        console.log("登録済み");
+        // console.log("登録済み");
 
         window.alert("パスワードを登録しました。");
 
         // ハッシュフレーズ：入力パスワードのハッシュ化
         var hash_source = mail + pass;
         var hash_phrase = CryptoJS.SHA256(hash_source);
-        console.log(hash_phrase);
-        console.log(hash_source);
+        // console.log(hash_phrase);
+        // console.log(hash_source);
 
         // モーダルを閉じる
         $(".js-modal").addClass("is_close").removeClass("is_open");
@@ -358,11 +358,11 @@ $(function () {
         それ以外、想定していない出力の場合
       ================================= */
       } else {
-        console.log("エラーが発生しました。");
+        // console.log("エラーが発生しました。");
       }
 
-      console.log(pass);
-      console.log(data.id);
+      // console.log(pass);
+      // console.log(data.id);
     });
   });
 
@@ -380,9 +380,9 @@ $(function () {
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      console.log(jqXHR);
-      console.log(textStatus);
-      console.log(errorThrown);
+      // console.log(jqXHR);
+      // console.log(textStatus);
+      // console.log(errorThrown);
     });
   }
 
@@ -393,24 +393,24 @@ $(function () {
     var mail = $("#delete_mail").val();
     var pass = $("#delete_pass").val();
     var number = $("#delete_number").val();
-    console.log(mail);
-    console.log(pass);
-    console.log(number);
+    // console.log(mail);
+    // console.log(pass);
+    // console.log(number);
 
     delete_ajax(service, mail, pass, number).done(function (
       data,
       textStatus,
       jqXHR
     ) {
-      console.log(data);
+      // console.log(data);
       if (data.flag == "success") {
         $(".js-modal").addClass("is_close").removeClass("is_open");
         $("body").removeClass("fixed").css({ top: "" });
         // $(window).scrollTop(scrollPos);
 
         // パスワード一覧表示
-        console.log(data.mail);
-        console.log(data.pass);
+        // console.log(data.mail);
+        // console.log(data.pass);
 
         var hash_source = data.mail + data.pass;
         var hash_phrase = CryptoJS.SHA256(hash_source);

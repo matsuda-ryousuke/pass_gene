@@ -38,8 +38,8 @@ C#.NETをやる予定
   //         var crypt_date = localStorage.getItem("crypt_date");
   //         var salt_test = CryptoJS.SHA256(key + crypt_date).toString();
   //         var salt = localStorage.getItem("salt");
-  //         console.log(salt);
-  //         console.log(salt_test);
+  //         // console.log(salt);
+  //         // console.log(salt_test);
 
   //         if (salt_test !== salt) {
   //           window.alert("異なる入力値です。");
@@ -50,7 +50,7 @@ C#.NETをやる予定
   //       sessionStorage.setItem("crypted", true);
 
   //       key_note.value = key;
-  //       console.log(key);
+  //       // console.log(key);
   //       window.alert("パスワードを承認しました。");
   //       // 認証パスワードを送信しなかったらキャンセル
 

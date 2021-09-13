@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", function () {
   // // セッションストレージを削除
   // sessionStorage.clear();
   // var datas = localStorage.getItem("password");
-  // console.log(datas);
+  // // console.log(datas);
   // // aタグによる画面遷移を無効化
   // var a = document.getElementsByTagName("a");
   // for (var n of a) {

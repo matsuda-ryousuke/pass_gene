@@ -11,7 +11,7 @@ $(function () {
   var scrollPos;
   $(".js-modal-open").each(function () {
     $(this).on("click", function () {
-      console.log("clicked");
+      // console.log("clicked");
       scrollPos = $(window).scrollTop();
       var target = $(this).data("target");
       var modal = document.getElementById(target);

@@ -4,7 +4,7 @@ $(function () {
     sessionStorage.clear();
 
     var datas = localStorage.getItem("password");
-    console.log(datas);
+    // console.log(datas);
 
     $("a").click(function () {
       return false;
@@ -32,7 +32,7 @@ $(function () {
 
     // パスワード削除ボタンで、ローカルからパスワード組を削除
     $("#all_delete_btn").click(function () {
-      console.log("alldel");
+      // console.log("alldel");
       // Display.all_delete_password(hash_phrase);
     });
 

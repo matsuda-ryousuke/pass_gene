@@ -3,8 +3,8 @@ class Display {
      * 取得したパスワードを表示する関数
      =============================================================================*/
   static display_password(pass_phrase, object) {
-    console.log(object);
-    console.log(object == null);
+    // console.log(object);
+    // console.log(object == null);
 
     if (object == null) {
       display_pass.innerHTML = "";
@@ -12,20 +12,21 @@ class Display {
       // オブジェクトを表に出力
       var text = '<div class="pagination">';
       for (var key in object) {
-        console.log(object[key]);
-        console.log(pass_phrase);
-        console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
-        text += "<dl><div>";
-        text += "<dt>" + key + "</dt>";
+        // console.log(object[key]);
+        // console.log(pass_phrase);
+        // console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
+        text += '<div class="pass_line">';
+        text += '<div class="pass_ttl">' + key + "</div>";
         text +=
-          "<dd>" +
+          '<div class="pass_content">' +
           Password.escapeHtml(
             Encrypt.decrypt_password(pass_phrase, object[key])
           ) +
-          "</dd>";
+          "</div>";
+        text += '<div class="pass_btns">';
         text += '<a href="#" class="btn copy_btn">copy</a>';
         text += '<a href="#" class="btn delete_btn">delete</a>';
-        text += "</div></dl>";
+        text += "</div></div>";
       }
       text += "</div>";
       display_pass.innerHTML = text;
@@ -59,7 +60,7 @@ class Display {
         }
       }
     }
-    console.log(flag);
+    // console.log(flag);
     return flag;
   }
 
@@ -132,9 +133,9 @@ class Display {
           var delete_pass = $(this).closest("div").find("dd").html();
           var scrollPos;
 
-          console.log(delete_name);
-          console.log(delete_pass);
-          console.log(i);
+          // console.log(delete_name);
+          // console.log(delete_pass);
+          // console.log(i);
 
           // 未登録の場合モーダルを表示し、削除するか確認
           var target = "modal_delete";
@@ -145,7 +146,7 @@ class Display {
 
           // 削除用のモーダル表示
           // モーダル表示
-          console.log("clicked");
+          // console.log("clicked");
           scrollPos = $(window).scrollTop();
           var target = $(this).data("target");
           var modal = document.getElementById(target);

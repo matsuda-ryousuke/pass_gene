@@ -338,7 +338,7 @@ class Password {
               var sym2_ascii = String.fromCharCode(sym2);
               password += String(sym2_ascii);
               flag_sym = 2;
-              console.log(sym_ascii);
+              // console.log(sym_ascii);
               break;
           }
         }
