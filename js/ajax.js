@@ -58,7 +58,13 @@ $(function () {
         console.log("登録済み");
 
         // ハッシュフレーズ：入力パスワードのハッシュ化
-        var hash_source = mail + pass;
+        // var hash_source = mail + pass;
+        console.log(mail);
+        console.log(pass);
+        var hash_source = data.mail + data.pass;
+        console.log(data.mail);
+        console.log(data.pass);
+
         var hash_phrase = CryptoJS.SHA256(hash_source);
 
         window.alert("パスワードを承認しました。");
@@ -76,8 +82,10 @@ $(function () {
         register_div.style.display = "block";
         pass_div.style.display = "block";
 
-        console.log(data.pass);
-        var passwords = data.pass;
+        console.log(data.passwords);
+        var passwords = data.passwords;
+        console.log(hash_phrase);
+        console.log(hash_source);
 
         Display.display_password(hash_phrase, passwords);
 
@@ -317,6 +325,8 @@ $(function () {
         // ハッシュフレーズ：入力パスワードのハッシュ化
         var hash_source = mail + pass;
         var hash_phrase = CryptoJS.SHA256(hash_source);
+        console.log(hash_phrase);
+        console.log(hash_source);
 
         // モーダルを閉じる
         $(".js-modal").addClass("is_close").removeClass("is_open");
@@ -326,7 +336,7 @@ $(function () {
         register_div.style.display = "block";
         pass_div.style.display = "block";
 
-        var passwords = data.pass;
+        var passwords = data.passwords;
         Display.display_password(hash_phrase, passwords);
 
         /* =================================
@@ -396,7 +406,7 @@ $(function () {
       // パスワード一覧表示
       var hash_source = mail + pass;
       var hash_phrase = CryptoJS.SHA256(hash_source);
-      Display.display_password(hash_phrase, data.pass);
+      Display.display_password(hash_phrase, data.passwords);
     });
   });
 });

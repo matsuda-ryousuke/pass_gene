@@ -12,6 +12,8 @@ class Display {
       // オブジェクトを表に出力
       var text = '<div class="pagination">';
       for (var key in object) {
+        console.log(object[key]);
+        console.log(pass_phrase);
         console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
         text += "<dl><div>";
         text += "<dt>" + key + "</dt>";
