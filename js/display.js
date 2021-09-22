@@ -11,16 +11,37 @@ class Display {
     } else {
       // オブジェクトを表に出力
       var text = '<div class="pagination">';
-      for (var key in object) {
-        // console.log(object[key]);
-        // console.log(pass_phrase);
-        // console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
+      // let i = 0;
+      // for (var key in object) {
+      //   // console.log(object[key]);
+      //   // console.log(pass_phrase);
+      //   // console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
+      //   text += '<div class="pass_line">';
+      //   text += '<div class="pass_ttl">' + key + "</div>";
+      //   text +=
+      //     '<div class="pass_content">' +
+      //     Password.escapeHtml(
+      //       Encrypt.decrypt_password(pass_phrase, object[key])
+      //     ) +
+      //     "</div>";
+      //   text += '<div class="pass_btns">';
+      //   text += '<a href="#" class="btn copy_btn">copy</a>';
+      //   text += '<a href="#" class="btn delete_btn">delete</a>';
+      //   text += "</div></div>";
+      // }
+
+      for (let i = 0; i < object.length; i++) {
+        var key = object[i];
+        console.log(key);
+        console.log(key.password);
+        console.log(key["password"]);
+        var password = key.password;
         text += '<div class="pass_line">';
-        text += '<div class="pass_ttl">' + key + "</div>";
+        text += '<div class="pass_ttl">' + key.sort + "</div>";
         text +=
           '<div class="pass_content">' +
           Password.escapeHtml(
-            Encrypt.decrypt_password(pass_phrase, object[key])
+            Encrypt.decrypt_password(pass_phrase, key.password)
           ) +
           "</div>";
         text += '<div class="pass_btns">';
@@ -68,52 +89,61 @@ class Display {
      * パスワードをコピーする関数
      =============================================================================*/
   static copy_password(pass_phrase) {
-    const copy_btn = document.getElementsByClassName("copy_btn");
-    // パスワード内の特殊文字をアンエスケープする関数
-    var unescapeHtml = function (target) {
-      if (typeof target !== "string") return target;
+    $(function () {
+      const copy_btn = document.getElementsByClassName("copy_btn");
+      // パスワード内の特殊文字をアンエスケープする関数
+      var unescapeHtml = function (target) {
+        if (typeof target !== "string") return target;
 
-      var patterns = {
-        "&lt;": "<",
-        "&gt;": ">",
-        "&amp;": "&",
-        "&quot;": '"',
-        "&#x27;": "'",
-        "&#x60;": "`",
+        var patterns = {
+          "&lt;": "<",
+          "&gt;": ">",
+          "&amp;": "&",
+          "&quot;": '"',
+          "&#x27;": "'",
+          "&#x60;": "`",
+        };
+
+        return target.replace(
+          /&(lt|gt|amp|quot|#x27|#x60);/g,
+          function (match) {
+            return patterns[match];
+          }
+        );
       };
 
-      return target.replace(/&(lt|gt|amp|quot|#x27|#x60);/g, function (match) {
-        return patterns[match];
-      });
-    };
+      for (let i = 0; i < copy_btn.length; i++) {
+        // 各コピーボタンに対して、クリックイベントを登録
+        copy_btn[i].addEventListener("click", function () {
+          // コピーする対象の名前
+          var copy_name = $(this)
+            .closest(".pass_line")
+            .find(".pass_ttl")
+            .html();
 
-    for (let i = 0; i < copy_btn.length; i++) {
-      // 各コピーボタンに対して、クリックイベントを登録
-      copy_btn[i].addEventListener("click", function () {
-        // コピーする対象の名前
-        var copy_name = this.parentNode.children[0].innerHTML;
-        // var copy_name_test = Object.keys(data)[i];
+          // コピーするパスワード本体
+          var copy_item = $(this)
+            .closest(".pass_line")
+            .find(".pass_content")
+            .html();
 
-        // コピーするパスワード本体
-        var copy_item = this.parentNode.children[1].innerHTML;
-        // var copy_item_test = Object.values(data)[i];
+          copy_item = unescapeHtml(copy_item);
+          var listener = function (e) {
+            e.clipboardData.setData("text/plain", copy_item);
+            // 本来のイベントをキャンセル
+            e.preventDefault();
+            // 終わったら一応削除
+            document.removeEventListener("copy", listener);
+          };
+          // コピーのイベントが発生したときに、クリップボードに書き込むようにしておく
+          document.addEventListener("copy", listener);
+          // コピー
+          document.execCommand("copy");
 
-        copy_item = unescapeHtml(copy_item);
-        var listener = function (e) {
-          e.clipboardData.setData("text/plain", copy_item);
-          // 本来のイベントをキャンセル
-          e.preventDefault();
-          // 終わったら一応削除
-          document.removeEventListener("copy", listener);
-        };
-        // コピーのイベントが発生したときに、クリップボードに書き込むようにしておく
-        document.addEventListener("copy", listener);
-        // コピー
-        document.execCommand("copy");
-
-        alert(copy_name + " のパスワードをコピーしました");
-      });
-    }
+          alert(copy_name + " のパスワードをコピーしました");
+        });
+      }
+    });
   }
 
   /**=============================================================================

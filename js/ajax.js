@@ -2,32 +2,52 @@ $(function () {
   // ユーザーが登録されているか確認→登録済みならばログインをするためのajax関数
   function login_ajax(mail, pass) {
     return $.ajax({
-      url: "http://192.168.33.13/login.php",
+      // url: "http://192.168.33.13/login.php",
+      // url: "http://www.sozosha-test.tk/pass_api/login.php",
+      url: "https://wecbfv78ol.execute-api.ap-northeast-1.amazonaws.com/dynamo_dev/dynamodb",
       type: "POST",
       dataType: "json",
-      data: {
-        mail: mail,
-        pass: pass,
-      },
+      // data: {
+      //   mail: mail,
+      //   pass: pass,
+      // },
+      data: JSON.stringify({
+        OperationType: "LOGIN",
+        Keys: {
+          partition: mail,
+          sort: mail,
+          user_pass: pass,
+        },
+      }),
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      // console.log(jqXHR);
-      // console.log(textStatus);
-      // console.log(errorThrown);
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
     });
   }
 
   // ユーザー登録をするためのajax関数
   function register_ajax(mail, pass) {
     return $.ajax({
-      url: "http://192.168.33.13/register.php",
+      // url: "http://192.168.33.13/register.php",
+      // url: "http://www.sozosha-test.tk/pass_api/register.php",
+      url: "https://wecbfv78ol.execute-api.ap-northeast-1.amazonaws.com/dynamo_dev/dynamodb",
       type: "POST",
       dataType: "json",
-      data: {
-        mail: mail,
-        pass: pass,
-      },
+      // data: {
+      //   mail: mail,
+      //   pass: pass,
+      // },
+      data: JSON.stringify({
+        OperationType: "PUTUSER",
+        Keys: {
+          partition: mail,
+          sort: mail,
+          user_pass: pass,
+        },
+      }),
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
@@ -46,10 +66,11 @@ $(function () {
     // ajax処理
     login_ajax(mail, pass).done(function (data, textStatus, jqXHR) {
       // 完了した場合、
-      // console.log(data);
-      // // console.log(JSON.parse(data));
+      console.log(data);
+      console.log(JSON.parse(data));
 
-      // console.log(data.flag);
+      console.log(JSON.parse(data).flag);
+      data = JSON.parse(data);
 
       /* =================================
         ユーザー登録済みの場合
@@ -223,21 +244,32 @@ $(function () {
 
   function post_ajax(encrypt_password, service, mail, pass) {
     return $.ajax({
-      url: "http://192.168.33.13/post.php",
+      // url: "http://192.168.33.13/post.php",
+      // url: "http://www.sozosha-test.tk/pass_api/post.php",
+      url: "https://wecbfv78ol.execute-api.ap-northeast-1.amazonaws.com/dynamo_dev/dynamodb",
       type: "POST",
       dataType: "json",
-      data: {
-        encrypt_password: encrypt_password,
-        service: service,
-        mail: mail,
-        pass: pass,
-      },
+      // data: {
+      //   encrypt_password: encrypt_password,
+      //   service: service,
+      //   mail: mail,
+      //   pass: pass,
+      // },
+      data: JSON.stringify({
+        OperationType: "PUTPASS",
+        Keys: {
+          partition: mail,
+          sort: service,
+          user_pass: pass,
+          encrypt_password: encrypt_password,
+        },
+      }),
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
-      // console.log(jqXHR);
-      // console.log(textStatus);
-      // console.log(errorThrown);
+      console.log(jqXHR);
+      console.log(textStatus);
+      console.log(errorThrown);
     });
   }
 
@@ -248,9 +280,9 @@ $(function () {
     var mail = $("#post_mail").val();
     var pass = $("#post_pass").val();
     var word = Password.unescapeHtml($("#pass_box").html());
-    // console.log(service);
-    // console.log(pass);
-    // console.log(word);
+    console.log(service);
+    console.log(pass);
+    console.log(word);
 
     // 入力パスワードのハッシュ化
     var hash_source = mail + pass;
@@ -309,10 +341,11 @@ $(function () {
       jqXHR
     ) {
       // 完了した場合、
-      // console.log(data);
-      // // console.log(JSON.parse(data));
+      console.log(data);
+      console.log(JSON.parse(data));
+      data = JSON.parse(data);
 
-      // console.log(data.flag);
+      console.log(data.flag);
 
       /* =================================
         パスワード登録成功の場合
@@ -368,15 +401,25 @@ $(function () {
 
   function delete_ajax(service, mail, pass, number) {
     return $.ajax({
-      url: "http://192.168.33.13/delete.php",
+      // url: "http://192.168.33.13/delete.php",
+      // url: "http://www.sozosha-test.tk/pass_api/delete.php",
+      url: "https://wecbfv78ol.execute-api.ap-northeast-1.amazonaws.com/dynamo_dev/dynamodb",
       type: "POST",
       dataType: "json",
-      data: {
-        service: service,
-        mail: mail,
-        pass: pass,
-        number: number,
-      },
+      // data: {
+      //   service: service,
+      //   mail: mail,
+      //   pass: pass,
+      //   number: number,
+      // },
+      data: JSON.stringify({
+        OperationType: "DELETE",
+        Keys: {
+          partition: mail,
+          sort: service,
+          user_pass: pass,
+        },
+      }),
     }).fail(function (jqXHR, textStatus, errorThrown) {
       // Ajaxの通信に問題があった場合
       $("#msg").html("エラーが発生しました。");
@@ -412,11 +455,16 @@ $(function () {
       textStatus,
       jqXHR
     ) {
+      // 完了した場合、
       console.log(data);
-      if (data.flag == "success") {
+      console.log(JSON.parse(data));
+
+      data = JSON.parse(data);
+      if (data.flag == "deleted") {
         $(".js-modal").addClass("is_close").removeClass("is_open");
         $("body").removeClass("fixed").css({ top: "" });
         // $(window).scrollTop(scrollPos);
+        window.alert("パスワードを削除しました。");
 
         // パスワード一覧表示
         console.log(data.mail);

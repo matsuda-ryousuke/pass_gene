@@ -176,3 +176,66 @@ display.js l130
 
 ログインフォーム、未登録でパスワードを間違えた場合、イベントが連続で発火してしまうバグ
 →修正済み
+
+ログイン時
+{
+  "OperationType": "LOGIN",
+  "Keys": {
+    "partition": "222@example.com",
+    "sort": "222@example.com",
+    "user_pass": "test"
+  }
+}
+
+ユーザー登録
+{
+  "OperationType": "PUTUSER",
+  "Keys": {
+    "partition": "222@example.com",
+    "sort": "222@example.com",
+    "user_pass": "test"
+  }
+}
+
+パスワード登録
+{
+  "OperationType": "PUTPASS",
+  "Keys": {
+    "partition": "222@example.com",
+    "sort": "test_service",
+    "user_pass": "test",
+    "encrypt_password": "encrypteddesuyo"
+  }
+}
+
+{
+  "OperationType": "DELETE",
+  "Keys": {
+    "partition": "222@example.com",
+    "sort": "test_service"
+  }
+}
+
+9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+93fd92181c1b5c071dae6ecffb9d69e3,292f32695dcd05643f18efe107a7de1a,gZVz50hpdrqS/AnOIuGTNg==
+
+{
+  "flag": "success", 
+  "mail": "111@example.com", 
+  "pass": "test", 
+  "passwords": [
+    {
+      "password": "0c65da88479bdacfed49ccd572d3ec47,8706a0d2d409d3042e211c92a42c696d,CvDrgVyy0Y5I0mE85gkZyg==", 
+      "attribute": "password", 
+      "partition": "111@example.com", 
+      "sort": "serd"
+    }, {
+      "password": "fd954dbd80aaffc9e3ba81666a6f019f,872cc1eae8d02a637ec9b7600f7b859c,6QU6SOJqFKr8iGl+KoCteQ==", 
+      "attribute": "password", 
+      "partition": "111@example.com", 
+      "sort": "servv"
+    }, {
+      "password": "06e688a316bfddd8b0ccecfc963ac6af,4ead4e6894f8fc72b48c72509c2c8472,zWO6EwQtF+k7XINyzPse2Q==", 
+      "attribute": "password", 
+      "partition": "111@example.com", 
+      "sort": "servv2"}]}
