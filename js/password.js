@@ -215,8 +215,6 @@ class Password {
       }
     }
 
-    // password = Password.escapeHtml(password);
-
     Password.check_strength();
     Password.print_pass(password);
   }
@@ -338,7 +336,6 @@ class Password {
               var sym2_ascii = String.fromCharCode(sym2);
               password += String(sym2_ascii);
               flag_sym = 2;
-              // console.log(sym_ascii);
               break;
           }
         }
@@ -347,7 +344,6 @@ class Password {
         }
       }
 
-      // password = Password.escapeHtml(password);
       Password.check_strength();
       Password.print_pass(password);
     }

@@ -3,39 +3,13 @@ class Display {
      * 取得したパスワードを表示する関数
      =============================================================================*/
   static display_password(pass_phrase, object) {
-    // console.log(object);
-    // console.log(object == null);
-
     if (object == null) {
       display_pass.innerHTML = "";
     } else {
       // オブジェクトを表に出力
       var text = '<div class="pagination">';
-      // let i = 0;
-      // for (var key in object) {
-      //   // console.log(object[key]);
-      //   // console.log(pass_phrase);
-      //   // console.log(Encrypt.decrypt_password(pass_phrase, object[key]));
-      //   text += '<div class="pass_line">';
-      //   text += '<div class="pass_ttl">' + key + "</div>";
-      //   text +=
-      //     '<div class="pass_content">' +
-      //     Password.escapeHtml(
-      //       Encrypt.decrypt_password(pass_phrase, object[key])
-      //     ) +
-      //     "</div>";
-      //   text += '<div class="pass_btns">';
-      //   text += '<a href="#" class="btn copy_btn">copy</a>';
-      //   text += '<a href="#" class="btn delete_btn">delete</a>';
-      //   text += "</div></div>";
-      // }
-
       for (let i = 0; i < object.length; i++) {
         var key = object[i];
-        console.log(key);
-        console.log(key.password);
-        console.log(key["password"]);
-        var password = key.password;
         text += '<div class="pass_line">';
         text += '<div class="pass_ttl">' + key.sort + "</div>";
         text +=
@@ -81,7 +55,6 @@ class Display {
         }
       }
     }
-    // console.log(flag);
     return flag;
   }
 
@@ -166,11 +139,6 @@ class Display {
             .find(".pass_content")
             .html();
           var scrollPos;
-
-          // console.log(delete_name);
-          // console.log(delete_pass);
-          // console.log(i);
-
           // 未登録の場合モーダルを表示し、削除するか確認
           var target = "modal_delete";
           var modal = document.getElementById(target);
@@ -180,8 +148,6 @@ class Display {
           $("#delete_number").val(i);
 
           // 削除用のモーダル表示
-          // モーダル表示
-          // console.log("clicked");
           scrollPos = $(window).scrollTop();
           var target = $(this).data("target");
           var modal = document.getElementById(target);
@@ -190,19 +156,5 @@ class Display {
         });
       }
     });
-  }
-
-  /**=============================================================================
-     * すべてのパスワードを削除する関数
-     =============================================================================*/
-  static all_delete_password(pass_phrase) {
-    var result = window.confirm("パスワードを削除してもよろしいですか？");
-    if (result) {
-      Register.local_storage_delete();
-    }
-
-    // パスワード一覧表示
-    var data = Register.local_storage_get("password");
-    Display.display_password(pass_phrase, data);
   }
 }

@@ -3,9 +3,6 @@ $(function () {
     // セッションストレージを削除
     sessionStorage.clear();
 
-    var datas = localStorage.getItem("password");
-    // console.log(datas);
-
     $("a").click(function () {
       return false;
     });
@@ -28,12 +25,6 @@ $(function () {
       password.css("opacity", 1);
 
       Password.get_pass2();
-    });
-
-    // パスワード削除ボタンで、ローカルからパスワード組を削除
-    $("#all_delete_btn").click(function () {
-      // console.log("alldel");
-      // Display.all_delete_password(hash_phrase);
     });
 
     // パスワード内の特殊文字をアンエスケープする関数

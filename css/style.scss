@@ -250,30 +250,6 @@ main {
   margin: 10px;
 }
 
-#all_delete_btn a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  padding: 1em 2em;
-  width: 20px;
-  color: #2285b1;
-  font-size: 18px;
-  font-weight: 700;
-  border: 2px solid #2285b1;
-}
-
-#all_delete_btn a:hover {
-  color: #333333;
-  text-decoration: none;
-  background-color: #a0c4d3;
-}
-
-#all_delete_btn a:hover::after {
-  border-top: 3px solid #333333;
-  border-right: 3px solid #333333;
-}
-
 .footer-section {
   width: 100%;
   text-align: center;
@@ -524,6 +500,10 @@ ul.pagination {
     justify-content: center;
     align-items: center;
   }
+}
+
+#non-login-div {
+  margin-top: 20px;
 }
 
 /* コピー、削除ボタン */

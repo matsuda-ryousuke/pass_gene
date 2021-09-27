@@ -13,7 +13,6 @@ class Encrypt {
 
     // salt を設定
     var salt = CryptoJS.lib.WordArray.random(128 / 8);
-    // console.log(salt);
 
     // 256ビット鍵、イテレーション500として鍵空間を定義
     var key256Bits500Iterations = CryptoJS.PBKDF2(utf8_passphrase, salt, {
@@ -40,7 +39,6 @@ class Encrypt {
     var binary_data = CryptoJS.enc.Hex.stringify(salt);
     binary_data += "," + CryptoJS.enc.Hex.stringify(iv);
     binary_data += "," + encrypted;
-    // console.log(binary_data);
     return binary_data;
   }
 
@@ -53,9 +51,6 @@ class Encrypt {
     var salt = CryptoJS.enc.Hex.parse(array_rawData[0]); // ソルト
     var iv = CryptoJS.enc.Hex.parse(array_rawData[1]); // 初期化ベクトル（IV）
     var encrypted_data = CryptoJS.enc.Base64.parse(array_rawData[2]); //暗号化データ本体
-    // console.log(salt);
-    // console.log(iv);
-    // console.log(encrypted_data);
 
     //パスフレーズ（鍵空間の定義）
     var key256Bits500Iterations = CryptoJS.PBKDF2(utf8_passphrase, salt, {
@@ -77,7 +72,6 @@ class Encrypt {
       options
     );
 
-    // console.log(decrypted);
     // 文字コードをUTF-8にする
     var decrypted_txt = decrypted.toString(CryptoJS.enc.Utf8);
     return decrypted_txt;
