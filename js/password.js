@@ -33,7 +33,6 @@ class Password {
     if (sessionStorage.getItem("new_pass") != null) {
       sessionStorage.removeItem("new_pass");
     }
-    Register.session_storage_set("new_pass", Password.unescapeHtml(pass));
 
     // ログイン済みならばパスワード登録用のボタンを表示
     var modal_btn = document.getElementById("modal_btn");

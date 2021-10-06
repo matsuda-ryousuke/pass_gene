@@ -42,6 +42,7 @@ class Encrypt {
     return binary_data;
   }
 
+  // 暗号鍵用のパスフレーズ、暗号化済みパスワードを復号する
   static decrypt_password(pass_phrase, encrypted) {
     // 暗号鍵のパスフレーズはUTF-8エンコーディング
     var utf8_passphrase = Encrypt.crypt_encode(pass_phrase);

@@ -27,9 +27,10 @@ class Display {
       display_pass.innerHTML = text;
 
       // コピー、削除ボタンの挙動を登録
-      Display.copy_password(pass_phrase);
-      Display.delete_password(pass_phrase);
+      Display.copy_password();
+      Display.delete_password();
 
+      // ページネーション部分
       $(function () {
         $(".pagination").paginathing({
           //親要素のclassを記述
@@ -61,7 +62,7 @@ class Display {
   /**=============================================================================
      * パスワードをコピーする関数
      =============================================================================*/
-  static copy_password(pass_phrase) {
+  static copy_password() {
     $(function () {
       const copy_btn = document.getElementsByClassName("copy_btn");
       // パスワード内の特殊文字をアンエスケープする関数
@@ -100,6 +101,7 @@ class Display {
             .find(".pass_content")
             .html();
 
+          // パスワードのアンエスケープ化
           copy_item = unescapeHtml(copy_item);
           var listener = function (e) {
             e.clipboardData.setData("text/plain", copy_item);
@@ -122,7 +124,7 @@ class Display {
   /**=============================================================================
      * 指定パスワードを削除する関数
      =============================================================================*/
-  static delete_password(pass_phrase) {
+  static delete_password() {
     $(function () {
       const delete_btn = document.getElementsByClassName("delete_btn");
 

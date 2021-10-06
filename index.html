@@ -16,6 +16,7 @@
   </head>
 
   <body>
+    <!-- 生成したパスワードの表示セクション -->
     <section id="password">
       <div id="">
         <h1 class="common-secttl" id="pass_box"></h1>
@@ -35,6 +36,7 @@
       </div>
     </section>
 
+    <!-- パスワードの条件指定、生成ボタンのセクション -->
     <section id="pass_div">
       <div id="length">
         パスワード文字列の長さ：<input
@@ -90,6 +92,7 @@
       </div>
     </section>
 
+    <!-- 登録したパスワードの表示セクション -->
     <section id="register_div">
       <div class="display">
         <div id="display_pass"></div>
@@ -97,6 +100,7 @@
       <h1 id="msg"></h1>
     </section>
 
+    <!-- ログインフォームのセクション -->
     <section id="login_div">
       <div class="alert">
         <h1>注意</h1>
@@ -188,36 +192,6 @@
         </div>
       </article>
 
-      <!-- ログインモーダル -->
-      <article id="modal_login" class="modal js-modal is_close">
-        <div class="modal-bg js-modal-close"></div>
-        <div class="modal-content">
-          <div class="modal-inner">
-            <div class="modal-item">
-              <div class="login">
-                <input
-                  type="email"
-                  name="mail"
-                  placeholder="xxx@example.com"
-                  id="login_mail"
-                  class="login_input"
-                />
-                <input
-                  type="password"
-                  name="pass"
-                  placeholder="my-password"
-                  id="login_pass"
-                  class="login_input"
-                />
-
-                <input type="submit" value="登録" id="login-btn" />
-              </div>
-            </div>
-          </div>
-          <div class="btn-close js-modal-close">close</div>
-        </div>
-      </article>
-
       <!-- ユーザー登録確認モーダル -->
       <article id="modal_confirm" class="modal js-modal is_close">
         <div class="modal-bg js-modal-close"></div>
@@ -252,6 +226,7 @@
           <div class="btn-close js-modal-close">close</div>
         </div>
       </article>
+
       <!-- パスワード削除確認モーダル -->
       <article id="modal_delete" class="modal js-modal is_close">
         <div class="modal-bg js-modal-close"></div>
@@ -309,11 +284,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="./js/script.js"></script>
     <script src="./js/query.js"></script>
 
     <script src="./js/password.js"></script>
-    <script src="./js/register.js"></script>
     <script src="./js/display.js"></script>
     <script src="./js/encrypt.js"></script>
     <script src="./js/ajax.js"></script>
